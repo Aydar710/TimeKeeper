@@ -40,6 +40,8 @@ buildscript {
 
         stephoVersion = '1.4.2'
 
+        vkApiVersion = '2.0.0'
+
         androidDeps = [
                 cardView        : "com.android.support:cardview-v7:$supportVersion",
                 recyclerView    : "com.android.support:recyclerview-v7:$supportVersion",
@@ -47,6 +49,7 @@ buildscript {
                 rxAndroid       : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
                 //material        : "com.google.android.material:material:$supportVersion",
                 glide           : "com.github.bumptech.glide:glide:$glideVersion",
+                bottomNav       : "com.android.support:design:$supportVersion"
         ]
 
         kotlinDeps = [
@@ -78,6 +81,20 @@ buildscript {
                 logging      : "com.squareup.okhttp3:logging-interceptor:$okhttpVersion",
                 stepho       : "com.facebook.stetho:stetho:$stephoVersion",
                 stephoOkHttp : "com.facebook.stetho:stetho-okhttp3:$stephoVersion"
+        ]
+
+        unitTestsDeps = [
+                jUnit  : "junit:junit:$junitVersion",
+                mockito: "org.mockito:mockito-inline:$mockitoVersion"
+        ]
+
+        espressoDeps = [
+                runner: "com.android.support.test:runner:$espressoRunnerVersion",
+                core  : "com.android.support.test.espresso:espresso-core:$espressoCoreVersion"
+        ]
+
+        vkDeps = [
+                vkApi: "com.vk:androidsdk:$vkApiVersion"
         ]
     }
     repositories {

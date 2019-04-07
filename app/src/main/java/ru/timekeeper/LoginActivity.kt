@@ -1,0 +1,58 @@
+package ru.timekeeper
+
+import android.content.Intent
+import android.content.SharedPreferences
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import com.vk.api.sdk.VK
+import com.vk.api.sdk.auth.VKAccessToken
+import com.vk.api.sdk.auth.VKAuthCallback
+import com.vk.api.sdk.auth.VKScope
+import kotlinx.android.synthetic.main.activity_login.*
+
+class LoginActivity : AppCompatActivity() {
+
+    private lateinit var sPref: SharedPreferences
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
+
+        img_login_vk.setOnClickListener {
+            VK.login(this, arrayListOf(VKScope.WALL, VKScope.GROUPS))
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val callback = object : VKAuthCallback {
+            override fun onLogin(token: VKAccessToken) {
+                // User passed authorization
+                saveTokenToPreferences(token.accessToken)
+                // startGroupsActivity()
+
+            }
+
+            override fun onLoginFailed(errorCode: Int) {
+                // User didn't pass authorization
+            }
+        }
+        if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    fun saveTokenToPreferences(token: String) {
+        sPref = getSharedPreferences(SHARED_PREF_FILENAME, MODE_PRIVATE)
+        sPref.edit().run {
+            putString(SHARED_PREF_TOKEN_KEY, token)
+            apply()
+        }
+
+    }
+
+    fun getTokenFromPreferences(): String? {
+        sPref = getSharedPreferences(SHARED_PREF_FILENAME, MODE_PRIVATE)
+        return sPref.getString(SHARED_PREF_TOKEN_KEY, "")
+
+    }
+}
