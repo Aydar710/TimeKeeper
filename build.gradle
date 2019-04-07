@@ -97,6 +97,7 @@ buildscript {
                 vkApi: "com.vk:androidsdk:$vkApiVersion"
         ]
     }
+
     repositories {
         google()
         jcenter()
