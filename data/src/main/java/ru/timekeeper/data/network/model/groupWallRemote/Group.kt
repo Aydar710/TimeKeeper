@@ -1,9 +1,9 @@
-package ru.timekeeper.data.network.model.groupsRemote
+package ru.timekeeper.data.network.model.groupWallRemote
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Group (
+data class Group(
 
     @SerializedName("id")
     @Expose

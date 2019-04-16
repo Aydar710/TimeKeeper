@@ -5,8 +5,10 @@ import com.google.gson.annotations.SerializedName
 
 data class GroupsResponse (
 
-    @SerializedName("response")
+    @SerializedName("count")
     @Expose
-    var response: Response? = null
-
+    val count: Int? = null,
+    @SerializedName("items")
+    @Expose
+    val items: List<Group>? = null
 )

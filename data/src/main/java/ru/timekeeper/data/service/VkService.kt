@@ -3,8 +3,8 @@ package ru.timekeeper.data.service
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.timekeeper.data.network.model.groupWallRemote.GroupWallResponse
-import ru.timekeeper.data.network.model.groupsRemote.GroupsResponse
+import ru.timekeeper.data.network.model.groupWallRemote.GroupWallResponseWrapper
+import ru.timekeeper.data.network.model.groupsRemote.GroupsResponseWrapper
 
 interface VkService {
 
@@ -13,7 +13,7 @@ interface VkService {
         @Query("owner_id") ownerId: String,
         @Query("count") count: String,
         @Query("access_token") access_token : String
-    ): Single<GroupWallResponse>
+    ): Single<GroupWallResponseWrapper>
 
 
     @GET("groups.search")
@@ -21,7 +21,7 @@ interface VkService {
         @Query("q") queryText : String?,
         @Query("access_token") access_token : String
 //            @Query("type") type : String = "group"
-    ) : Single<GroupsResponse>
+    ) : Single<GroupsResponseWrapper>
 
     @GET("groups.get")
     fun getUsersGroups(
@@ -29,5 +29,5 @@ interface VkService {
         @Query("extended") extended : String = "1",
         @Query("count") count : String = "30",
         @Query("access_token") token : String
-    ) : Single<GroupsResponse>
+    ) : Single<GroupsResponseWrapper>
 }

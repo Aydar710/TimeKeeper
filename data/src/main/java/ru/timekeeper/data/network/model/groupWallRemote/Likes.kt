@@ -3,16 +3,19 @@ package ru.timekeeper.data.network.model.groupWallRemote
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Comments (
+data class Likes (
 
     @SerializedName("count")
     @Expose
     val count: Int? = null,
-    @SerializedName("can_post")
+    @SerializedName("user_likes")
     @Expose
-    val canPost: Int? = null,
-    @SerializedName("groups_can_post")
+    val userLikes: Int? = null,
+    @SerializedName("can_like")
     @Expose
-    val groupsCanPost: Boolean? = null
+    val canLike: Int? = null,
+    @SerializedName("can_publish")
+    @Expose
+    val canPublish: Int? = null
 
 )

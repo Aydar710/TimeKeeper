@@ -3,13 +3,9 @@ package ru.timekeeper.data.network.model.groupsRemote
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Response (
+data class GroupsResponseWrapper (
 
-    @SerializedName("count")
+    @SerializedName("response")
     @Expose
-    var count: Int? = null,
-    @SerializedName("items")
-    @Expose
-    var items: List<Group>? = null
-
+    val response: GroupsResponse? = null
 )

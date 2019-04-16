@@ -2,12 +2,20 @@ package ru.timekeeper.data.network.model.groupWallRemote
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import ru.timekeeper.data.network.model.groupsRemote.Response
 
-data class GroupWallResponse (
+data class GroupWallResponse(
 
-    @SerializedName("response")
+    @SerializedName("count")
     @Expose
-    var response: Response? = null
+    val count: Int? = null,
+    @SerializedName("items")
+    @Expose
+    val items: List<Item>? = null,
+    @SerializedName("profiles")
+    @Expose
+    val profiles: List<Any>? = null,
+    @SerializedName("groups")
+    @Expose
+    val groups: List<Group>? = null
 
 )

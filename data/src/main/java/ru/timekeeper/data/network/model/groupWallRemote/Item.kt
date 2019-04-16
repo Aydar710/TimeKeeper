@@ -7,48 +7,48 @@ data class Item(
 
     @SerializedName("id")
     @Expose
-    var id: Int? = null,
+    val id: Int? = null,
     @SerializedName("from_id")
     @Expose
-    var fromId: Int? = null,
+    val fromId: Int? = null,
     @SerializedName("owner_id")
     @Expose
-    var ownerId: Int? = null,
+    val ownerId: Int? = null,
     @SerializedName("date")
     @Expose
-    var date: Int? = null,
+    val date: Int? = null,
     @SerializedName("marked_as_ads")
     @Expose
-    var markedAsAds: Int? = null,
+    val markedAsAds: Int? = null,
     @SerializedName("post_type")
     @Expose
-    var postType: String? = null,
+    val postType: String? = null,
     @SerializedName("text")
     @Expose
-    var text: String? = null,
+    val text: String? = null,
     @SerializedName("is_pinned")
     @Expose
-    var isPinned: Int? = null,
+    val isPinned: Int? = null,
     @SerializedName("attachments")
     @Expose
-    var attachments: List<Attachment>? = null,
+    val attachments: List<Attachment>? = null,
     @SerializedName("post_source")
     @Expose
-    var postSource: PostSource? = null,
+    val postSource: PostSource? = null,
     @SerializedName("comments")
     @Expose
-    var comments: Comments? = null,
+    val comments: Comments? = null,
     @SerializedName("likes")
     @Expose
-    var likes: Likes? = null,
+    val likes: Likes? = null,
     @SerializedName("reposts")
     @Expose
-    var reposts: Reposts? = null,
+    val reposts: Reposts? = null,
     @SerializedName("views")
     @Expose
-    var views: Views? = null,
+    val views: Views? = null,
     @SerializedName("is_favorite")
     @Expose
-    var isFavorite: Boolean? = null
+    val isFavorite: Boolean? = null
 
 )
