@@ -1,15 +1,16 @@
 package ru.timekeeper.data.di.module
 
-import dagger.Binds
 import dagger.Module
-import ru.timekeeper.core.interfaces.VkRepository
-import ru.timekeeper.data.repository.VkRepositoryImpl
+import dagger.Provides
+import ru.timekeeper.data.repository.VkRepository
+import ru.timekeeper.data.service.VkService
 import javax.inject.Singleton
 
-@Module
-interface RepositoryModule {
+@Module(includes = [ServiceModule::class])
+class RepositoryModule {
 
     @Singleton
-    @Binds
-    fun bindVkRepository(vkRepositoryImpl: VkRepositoryImpl): VkRepository
+    @Provides
+    fun provideVkRepository(vkService: VkService): VkRepository =
+        VkRepository(vkService)
 }

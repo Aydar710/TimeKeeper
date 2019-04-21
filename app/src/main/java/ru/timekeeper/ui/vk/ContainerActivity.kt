@@ -1,7 +1,8 @@
-package ru.timekeeper
+package ru.timekeeper.ui.vk
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import ru.timekeeper.R
 
 class ContainerActivity : AppCompatActivity() {
 

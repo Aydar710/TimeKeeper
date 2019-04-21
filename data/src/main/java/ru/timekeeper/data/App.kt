@@ -1,10 +1,9 @@
-package ru.timekeeper
+package ru.timekeeper.data
 
-import android.app.AppComponentFactory
 import android.app.Application
-import ru.timekeeper.di.AppComponent
-import ru.timekeeper.di.AppModule
-import ru.timekeeper.di.DaggerAppComponent
+import ru.timekeeper.data.di.component.AppComponent
+import ru.timekeeper.data.di.component.DaggerAppComponent
+import ru.timekeeper.data.di.module.AppModule
 
 class App : Application() {
 
@@ -19,6 +18,6 @@ class App : Application() {
             .appModule(AppModule(this))
             .build()
 
-        component.inject(this)
+        //component.inject(this)
     }
 }

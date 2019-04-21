@@ -1,14 +1,15 @@
-package ru.timekeeper.di
+package ru.timekeeper.data.di.module
 
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import ru.timekeeper.data.App
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val context: Context) {
+class AppModule(private val app: App) {
 
     @Singleton
     @Provides
-    fun provideContext(): Context = context
+    fun provieApp(): Context = app
 }

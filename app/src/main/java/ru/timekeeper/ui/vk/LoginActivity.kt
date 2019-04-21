@@ -1,4 +1,4 @@
-package ru.timekeeper
+package ru.timekeeper.ui.vk
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,6 +9,9 @@ import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
 import com.vk.api.sdk.auth.VKScope
 import kotlinx.android.synthetic.main.activity_login.*
+import ru.timekeeper.R
+import ru.timekeeper.SHARED_PREF_FILENAME
+import ru.timekeeper.SHARED_PREF_TOKEN_KEY
 
 class LoginActivity : AppCompatActivity() {
 
@@ -28,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onLogin(token: VKAccessToken) {
                 // User passed authorization
                 saveTokenToPreferences(token.accessToken)
-                // startGroupsActivity()
+                startContainerActivity()
 
             }
 
@@ -39,6 +42,11 @@ class LoginActivity : AppCompatActivity() {
         if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    fun startContainerActivity() {
+        val intent = Intent(this, ContainerActivity::class.java)
+        startActivity(intent)
     }
 
     fun saveTokenToPreferences(token: String) {

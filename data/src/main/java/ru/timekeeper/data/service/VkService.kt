@@ -27,7 +27,7 @@ interface VkService {
     fun getUsersGroups(
         @Query("user_id") userId : String,
         @Query("extended") extended : String = "1",
-        @Query("count") count : String = "30",
+        @Query("count") count : String = "10",
         @Query("access_token") token : String
     ) : Single<GroupsResponseWrapper>
 }
