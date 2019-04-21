@@ -1,9 +1,9 @@
-package ru.timekeeper.data.di.module
+package ru.timekeeper.di.module
 
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import ru.timekeeper.data.App
+import ru.timekeeper.App
 import javax.inject.Singleton
 
 @Module

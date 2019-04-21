@@ -2,8 +2,8 @@ package ru.timekeeper.ui.vk
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
@@ -24,6 +24,9 @@ class LoginActivity : AppCompatActivity() {
         img_login_vk.setOnClickListener {
             VK.login(this, arrayListOf(VKScope.WALL, VKScope.GROUPS))
         }
+
+        startContainerActivity()
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -61,6 +64,5 @@ class LoginActivity : AppCompatActivity() {
     fun getTokenFromPreferences(): String? {
         sPref = getSharedPreferences(SHARED_PREF_FILENAME, MODE_PRIVATE)
         return sPref.getString(SHARED_PREF_TOKEN_KEY, "")
-
     }
 }

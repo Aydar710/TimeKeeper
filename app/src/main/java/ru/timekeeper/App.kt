@@ -1,14 +1,14 @@
-package ru.timekeeper.data
+package ru.timekeeper
 
 import android.app.Application
-import ru.timekeeper.data.di.component.AppComponent
-import ru.timekeeper.data.di.component.DaggerAppComponent
-import ru.timekeeper.data.di.module.AppModule
+import ru.timekeeper.di.component.AppComponent
+import ru.timekeeper.di.component.DaggerAppComponent
+import ru.timekeeper.di.module.AppModule
 
 class App : Application() {
 
     companion object {
-        lateinit var component : AppComponent
+        lateinit var component: AppComponent
     }
 
     override fun onCreate() {
