@@ -27,9 +27,21 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="8dp"
+        android:maxLength="20"
         android:textColor="@color/black"
         app:layout_constraintLeft_toRightOf="@id/img_group"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Group Name" />
+
+    <ImageView
+        android:id="@+id/img_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintStart_toEndOf="@+id/img_group"
+        app:srcCompat="@drawable/ic_like_icon" />
 
 </android.support.constraint.ConstraintLayout>

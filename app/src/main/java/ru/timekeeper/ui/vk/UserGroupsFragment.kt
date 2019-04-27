@@ -1,5 +1,6 @@
 package ru.timekeeper.ui.vk
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.SharedPreferences
@@ -14,22 +15,23 @@ import ru.timekeeper.App
 import ru.timekeeper.R
 import ru.timekeeper.SHARED_PREF_FILENAME
 import ru.timekeeper.SHARED_PREF_TOKEN_KEY
-import ru.timekeeper.adapters.GroupsAdapter
+import ru.timekeeper.adapters.VkGroupsAdapter
+import ru.timekeeper.data.network.model.groupsRemote.Group
 import ru.timekeeper.data.repository.VkRepository
-import ru.timekeeper.viewModels.UserGroupsFragmentViewModel
+import ru.timekeeper.viewModels.VkUserGroupsFragmentViewModel
 import javax.inject.Inject
 
 class UserGroupsFragment : Fragment() {
 
     @Inject
     lateinit var repository: VkRepository
-    lateinit var adapter: GroupsAdapter
+    lateinit var adapter: VkGroupsAdapter
     lateinit var sPref: SharedPreferences
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    lateinit var viewModel: UserGroupsFragmentViewModel
+    lateinit var viewModel: VkUserGroupsFragmentViewModel
 
     companion object {
         private val ARG_USER_ID = "user_id"
@@ -46,33 +48,20 @@ class UserGroupsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_user_groups, container, false)
         App.component.inject(this)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[UserGroupsFragmentViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[VkUserGroupsFragmentViewModel::class.java]
 
         val recyclerView = view.recycler_user_groups
         val fragmentActivity: ContainerActivity = activity as ContainerActivity
-        adapter = GroupsAdapter(fragmentActivity)
+        adapter = VkGroupsAdapter(fragmentActivity)
         val userId: String = arguments?.getInt(ARG_USER_ID).toString()
         recyclerView.adapter = adapter
         val token = getTokenFromPreferences()
 
-        /*repository.getUsersGroups(userId, count = "30", token = token)*/
-        /*    .observeOn(AndroidSchedulers.mainThread())*/
-        /*    .subscribe(*/
-        /*        {*/
-        /*            adapter.submitList(it)*/
-        /*        },*/
-        /*        {*/
-        /*            it.printStackTrace()*/
-        /*        }*/
-        /*    )*/
 
-
-
-        /*viewModel.groupsLiveData.observe(this, Observer<List<Group>> { groups ->
+        viewModel.groupsLiveData.observe(this, Observer<List<Group>> { groups ->
             adapter.submitList(groups)
         })
 
-        viewModel.getUserGroups(userId, token)*/
         return view
     }
 

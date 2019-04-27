@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_container.*
 import ru.timekeeper.R
-import ru.timekeeper.adapters.GroupsAdapter
+import ru.timekeeper.adapters.VkGroupsAdapter
 import ru.timekeeper.data.network.model.groupsRemote.Group
 
-class ContainerActivity : AppCompatActivity(), GroupsAdapter.ListItemClickListener {
+class ContainerActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

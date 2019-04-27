@@ -7,16 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.card_group.*
-import kotlinx.android.synthetic.main.card_group.view.*
+import kotlinx.android.synthetic.main.card_vk_group.*
+import kotlinx.android.synthetic.main.card_vk_group.view.*
 import ru.timekeeper.R
 import ru.timekeeper.data.network.model.groupsRemote.Group
 
-class GroupsAdapter(val listItemClickListener : ListItemClickListener) : ListAdapter<Group, GroupsAdapter.GroupHolder>(GroupItemDiffCallback()) {
+class VkGroupsAdapter(val listItemClickListener : ListItemClickListener) : ListAdapter<Group, VkGroupsAdapter.GroupHolder>(GroupItemDiffCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): GroupHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_group, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_vk_group, parent, false)
         return GroupHolder(view)
     }
 

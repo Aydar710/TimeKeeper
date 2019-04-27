@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.facebook.stetho.Stetho
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
@@ -37,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onLogin(token: VKAccessToken) {
                 // User passed authorization
                 saveTokenToPreferences(token.accessToken)
+                Log.i("Token", token.accessToken)
                 startContainerActivity()
 
             }
