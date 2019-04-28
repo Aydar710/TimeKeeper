@@ -8,6 +8,7 @@ import ru.timekeeper.data.di.module.ServiceModule
 import ru.timekeeper.di.module.AppModule
 import ru.timekeeper.di.module.ViewModelModule
 import ru.timekeeper.ui.vk.UserGroupsFragment
+import ru.timekeeper.ui.vk.VkGroupWallFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -25,4 +26,5 @@ interface AppComponent {
     fun provideApp(): Context
 
     fun inject(userGroupsFragment: UserGroupsFragment)
+    fun inject(vkGroupWallFragment: VkGroupWallFragment)
 }

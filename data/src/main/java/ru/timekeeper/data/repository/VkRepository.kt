@@ -7,9 +7,21 @@ import ru.timekeeper.data.service.VkService
 
 class VkRepository(private val vkService: VkService) {
 
-    fun getUsersGroups(userId: String, count: String = "30", token: String): Single<List<Group>> {
-        return vkService.getUsersGroups(userId, count, token = token)
-            .subscribeOn(Schedulers.io())
-            .map { it.response?.items }
-    }
+    fun getUsersGroups(userId: String, count: String = "13", token: String): Single<List<Group>> =
+            vkService.getUsersGroups(userId, count, token = token)
+                    .subscribeOn(Schedulers.io())
+                    .map { it.response?.items }
+
+
+    fun getGroupPosts(groupId: String, count: String = "20", token: String) =
+            vkService.getGroupPosts(groupId, count, token)
+                    .subscribeOn(Schedulers.io())
+                    .map {
+                        it.response
+                    }
+                    .map {
+                        it?.items
+                    }
+
+
 }

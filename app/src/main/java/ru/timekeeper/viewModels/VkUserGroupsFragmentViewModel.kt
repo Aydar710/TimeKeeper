@@ -12,7 +12,7 @@ import javax.inject.Inject
 class VkUserGroupsFragmentViewModel @Inject constructor(private val repository: VkRepository) : ViewModel() {
 
 
-    private var groups: Single<List<Group>> = loadUserGroups("02ad39a6772a990c82446fd072fbabc4858fa286fc19c2b7efda5882734a72967f3f3424838e8900b7518")
+    private var groups: Single<List<Group>> = loadUserGroups("309052a5dbb55014c4ec7c6be7abca04b8ad158cff4135d45ec1a128545ddf70363b34b68f2d3e0a1c2f2")
 
     var groupsLiveData : LiveData<List<Group>> = LiveDataReactiveStreams.fromPublisher(groups.toFlowable())
 

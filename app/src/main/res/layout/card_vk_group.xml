@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Group Name" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/img_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,6 +42,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toEndOf="@+id/img_group"
-        app:srcCompat="@drawable/ic_like_icon" />
+        app:srcCompat="@drawable/ic_like_icon" />-->
 
 </android.support.constraint.ConstraintLayout>

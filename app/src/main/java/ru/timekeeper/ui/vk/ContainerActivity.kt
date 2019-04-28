@@ -21,13 +21,20 @@ class ContainerActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickList
         }
     }
 
-
     override fun onClick(group: Group) {
+        doGroupWallTransaction(group)
     }
 
-    fun onActionVkClicked() {
+    private fun onActionVkClicked() {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.container_main, UserGroupsFragment.newInstance(116812347))
-                .commit()
+            .replace(R.id.container_main, UserGroupsFragment.newInstance(116812347))
+            .commit()
+    }
+
+    private fun doGroupWallTransaction(group: Group) {
+        val fragmentManager = supportFragmentManager
+        fragmentManager.beginTransaction()
+            .replace(R.id.container_main, VkGroupWallFragment.newInstance(group))
+            .commit()
     }
 }

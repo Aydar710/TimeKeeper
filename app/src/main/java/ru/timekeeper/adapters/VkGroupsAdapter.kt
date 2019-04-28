@@ -37,7 +37,6 @@ class VkGroupsAdapter(val listItemClickListener : ListItemClickListener) : ListA
         var imgGroup = containerView.img_group
         var txtGroupName = containerView.txt_group_name
 
-
         fun bind(group: Group) {
             txt_group_name.text = group.name
 
@@ -50,5 +49,4 @@ class VkGroupsAdapter(val listItemClickListener : ListItemClickListener) : ListA
 
         }
     }
-
 }

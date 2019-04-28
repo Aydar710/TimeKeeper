@@ -40,7 +40,6 @@ class LoginActivity : AppCompatActivity() {
                 saveTokenToPreferences(token.accessToken)
                 Log.i("Token", token.accessToken)
                 startContainerActivity()
-
             }
 
             override fun onLoginFailed(errorCode: Int) {
