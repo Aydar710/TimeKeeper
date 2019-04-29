@@ -32,7 +32,7 @@ class UserGroupsFragment : Fragment() {
     @Inject
     lateinit var sharedPrefWrapper: SharedPrefWrapper
 
-    lateinit var viewModel: VkUserGroupsFragmentViewModel
+    private lateinit var viewModel: VkUserGroupsFragmentViewModel
 
     companion object {
         private val ARG_USER_ID = "user_id"
