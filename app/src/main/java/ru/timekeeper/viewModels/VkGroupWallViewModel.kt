@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.timekeeper.ACCESS_KEY
+import ru.timekeeper.GROUP_ID
 import ru.timekeeper.data.network.model.groupWallRemote.Item
 import ru.timekeeper.data.repository.VkRepository
 import javax.inject.Inject
@@ -18,6 +19,6 @@ class VkGroupWallViewModel @Inject constructor(private val repository: VkReposit
             LiveDataReactiveStreams.fromPublisher(posts.toFlowable())
 
     fun loadGroupWall(token: String): Single<List<Item>> =
-            repository.getGroupPosts("-41696672", token = token)
+            repository.getGroupPosts(GROUP_ID, token = token)
                     .observeOn(AndroidSchedulers.mainThread())
 }
