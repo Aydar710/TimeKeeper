@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_container.*
 import ru.timekeeper.R
+import ru.timekeeper.USER_ID
 import ru.timekeeper.adapters.VkGroupsAdapter
 import ru.timekeeper.data.network.model.groupsRemote.Group
 
@@ -27,7 +28,7 @@ class ContainerActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickList
 
     private fun onActionVkClicked() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container_main, VkUserGroupsFragment.newInstance(116812347))
+            .replace(R.id.container_main, VkUserGroupsFragment.newInstance(USER_ID))
             .commit()
     }
 

@@ -6,8 +6,8 @@ import ru.timekeeper.data.network.model.groupWallRemote.Item
 class PostItemDiffCallback : DiffUtil.ItemCallback<Item>() {
 
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean =
-        oldItem == newItem
+            oldItem == newItem
 
     override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean =
-        oldItem.id == newItem.id
+            oldItem.id == newItem.id
 }

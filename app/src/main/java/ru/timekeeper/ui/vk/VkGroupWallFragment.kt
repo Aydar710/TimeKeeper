@@ -23,9 +23,11 @@ class VkGroupWallFragment : Fragment() {
 
     private var sPref: SharedPreferences? = null
 
+    @Suppress("LateinitUsage")
     @Inject
     lateinit var sharedPrefWrapper: SharedPrefWrapper
 
+    @Suppress("LateinitUsage")
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 

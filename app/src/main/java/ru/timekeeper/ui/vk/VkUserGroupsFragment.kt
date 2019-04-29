@@ -22,9 +22,11 @@ class VkUserGroupsFragment : Fragment() {
 
     var adapter: VkGroupsAdapter? = null
 
+    @Suppress("LateinitUsage")
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    @Suppress("LateinitUsage")
     @Inject
     lateinit var sharedPrefWrapper: SharedPrefWrapper
 
