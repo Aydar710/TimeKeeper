@@ -8,10 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_vk_group_wall.view.*
-import ru.timekeeper.App
-import ru.timekeeper.R
-import ru.timekeeper.SHARED_PREF_FILENAME
-import ru.timekeeper.SHARED_PREF_TOKEN_KEY
+import ru.timekeeper.*
 import ru.timekeeper.adapters.VkPostAdapter
 import ru.timekeeper.data.network.model.groupsRemote.Group
 import ru.timekeeper.data.repository.VkRepository
@@ -23,6 +20,9 @@ class VkGroupWallFragment : Fragment() {
     lateinit var repository: VkRepository
 
     private var sPref: SharedPreferences? = null
+
+    @Inject
+    lateinit var sharedPrefWrapper: SharedPrefWrapper
 
     companion object {
         private var ARG_GROUP_ID = "group_id"
@@ -40,21 +40,22 @@ class VkGroupWallFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        App.component.inject(this)
+
         val view = inflater.inflate(R.layout.fragment_vk_group_wall, container, false)
         val recyclerView = view.recycler_vk_group_wall
         val adapter = VkPostAdapter()
 
         val groupId: String = "-" + arguments?.getInt(ARG_GROUP_ID).toString()
         recyclerView.adapter = adapter
-        val token = getTokenFromPreferences()
+        val token = sharedPrefWrapper.getTokenFromPreferences()
 
-        App.component.inject(this)
         repository.getGroupPosts(groupId, token = token)
-            .subscribe({
-                adapter.submitList(it)
-            }, {
-                it.printStackTrace()
-            })
+                .subscribe({
+                    adapter.submitList(it)
+                }, {
+                    it.printStackTrace()
+                })
         return view
     }
 

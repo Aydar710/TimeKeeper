@@ -33,8 +33,16 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
             txt_vk_post_repost.text = post.reposts?.count.toString()
 
             Picasso.get()
-                .load(post.attachments?.get(0)?.photo?.sizes?.get(7)?.url)
-                .into(img_vk_post_photo)
+                    .load(
+                            getImageSize(post)?.let {
+                                post.attachments?.get(0)?.photo?.sizes?.get(it)?.url
+                            }
+                    )
+                    .into(img_vk_post_photo)
         }
     }
+
+    fun getImageSize(post: Item): Int? =
+            post.attachments?.get(0)?.photo?.sizes?.size?.minus(1)
+
 }

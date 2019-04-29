@@ -6,15 +6,13 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_user_groups.view.*
 import ru.timekeeper.App
 import ru.timekeeper.R
-import ru.timekeeper.SHARED_PREF_FILENAME
-import ru.timekeeper.SHARED_PREF_TOKEN_KEY
+import ru.timekeeper.SharedPrefWrapper
 import ru.timekeeper.adapters.VkGroupsAdapter
 import ru.timekeeper.data.network.model.groupsRemote.Group
 import ru.timekeeper.data.repository.VkRepository
@@ -30,6 +28,9 @@ class UserGroupsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var sharedPrefWrapper: SharedPrefWrapper
 
     lateinit var viewModel: VkUserGroupsFragmentViewModel
 
@@ -55,18 +56,12 @@ class UserGroupsFragment : Fragment() {
         adapter = VkGroupsAdapter(fragmentActivity)
         val userId: String = arguments?.getInt(ARG_USER_ID).toString()
         recyclerView.adapter = adapter
-        val token = getTokenFromPreferences()
-
+        val token = sharedPrefWrapper.getTokenFromPreferences()
 
         viewModel.groupsLiveData.observe(this, Observer<List<Group>> { groups ->
             adapter.submitList(groups)
         })
 
         return view
-    }
-
-    fun getTokenFromPreferences(): String {
-        sPref = App.component.provideApp().getSharedPreferences(SHARED_PREF_FILENAME, AppCompatActivity.MODE_PRIVATE)
-        return sPref.getString(SHARED_PREF_TOKEN_KEY, "")
     }
 }

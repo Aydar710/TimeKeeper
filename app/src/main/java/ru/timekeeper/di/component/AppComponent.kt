@@ -6,20 +6,23 @@ import ru.timekeeper.data.di.module.NetModule
 import ru.timekeeper.data.di.module.RepositoryModule
 import ru.timekeeper.data.di.module.ServiceModule
 import ru.timekeeper.di.module.AppModule
+import ru.timekeeper.di.module.SharedPrefModule
 import ru.timekeeper.di.module.ViewModelModule
+import ru.timekeeper.ui.vk.LoginActivity
 import ru.timekeeper.ui.vk.UserGroupsFragment
 import ru.timekeeper.ui.vk.VkGroupWallFragment
 import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [
-        AppModule::class,
-        NetModule::class,
-        ServiceModule::class,
-        RepositoryModule::class,
-        ViewModelModule::class
-    ]
+        modules = [
+            AppModule::class,
+            NetModule::class,
+            ServiceModule::class,
+            RepositoryModule::class,
+            ViewModelModule::class,
+            SharedPrefModule::class
+        ]
 )
 interface AppComponent {
 
@@ -27,4 +30,5 @@ interface AppComponent {
 
     fun inject(userGroupsFragment: UserGroupsFragment)
     fun inject(vkGroupWallFragment: VkGroupWallFragment)
+    fun inject(loginActivity: LoginActivity)
 }

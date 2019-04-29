@@ -11,19 +11,24 @@ import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
 import com.vk.api.sdk.auth.VKScope
 import kotlinx.android.synthetic.main.activity_login.*
+import ru.timekeeper.App
 import ru.timekeeper.R
-import ru.timekeeper.SHARED_PREF_FILENAME
-import ru.timekeeper.SHARED_PREF_TOKEN_KEY
+import ru.timekeeper.SharedPrefWrapper
+import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var sPref: SharedPreferences
+
+    @Inject
+    lateinit var sharedPrefWrapper: SharedPrefWrapper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         Stetho.initializeWithDefaults(this)
+        App.component.inject(this)
 
         img_login_vk.setOnClickListener {
             VK.login(this, arrayListOf(VKScope.WALL, VKScope.GROUPS))
@@ -37,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         val callback = object : VKAuthCallback {
             override fun onLogin(token: VKAccessToken) {
                 // User passed authorization
-                saveTokenToPreferences(token.accessToken)
+                sharedPrefWrapper.saveTokenToPreferences(token.accessToken)
                 Log.i("Token", token.accessToken)
                 startContainerActivity()
             }
@@ -54,19 +59,5 @@ class LoginActivity : AppCompatActivity() {
     fun startContainerActivity() {
         val intent = Intent(this, ContainerActivity::class.java)
         startActivity(intent)
-    }
-
-    fun saveTokenToPreferences(token: String) {
-        sPref = getSharedPreferences(SHARED_PREF_FILENAME, MODE_PRIVATE)
-        sPref.edit().run {
-            putString(SHARED_PREF_TOKEN_KEY, token)
-            apply()
-        }
-
-    }
-
-    fun getTokenFromPreferences(): String? {
-        sPref = getSharedPreferences(SHARED_PREF_FILENAME, MODE_PRIVATE)
-        return sPref.getString(SHARED_PREF_TOKEN_KEY, "")
     }
 }
