@@ -3,7 +3,6 @@ package ru.timekeeper.ui.vk
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -15,16 +14,13 @@ import ru.timekeeper.R
 import ru.timekeeper.SharedPrefWrapper
 import ru.timekeeper.adapters.VkGroupsAdapter
 import ru.timekeeper.data.network.model.groupsRemote.Group
-import ru.timekeeper.data.repository.VkRepository
 import ru.timekeeper.viewModels.VkUserGroupsFragmentViewModel
 import javax.inject.Inject
 
-class UserGroupsFragment : Fragment() {
+class VkUserGroupsFragment : Fragment() {
 
-    @Inject
-    lateinit var repository: VkRepository
-    lateinit var adapter: VkGroupsAdapter
-    lateinit var sPref: SharedPreferences
+
+    var adapter: VkGroupsAdapter? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -32,14 +28,14 @@ class UserGroupsFragment : Fragment() {
     @Inject
     lateinit var sharedPrefWrapper: SharedPrefWrapper
 
-    private lateinit var viewModel: VkUserGroupsFragmentViewModel
+    private var viewModel: VkUserGroupsFragmentViewModel? = null
 
     companion object {
         private val ARG_USER_ID = "user_id"
-        fun newInstance(userId: Int): UserGroupsFragment {
+        fun newInstance(userId: Int): VkUserGroupsFragment {
             val args: Bundle = Bundle()
             args.putInt(ARG_USER_ID, userId)
-            val fragment: UserGroupsFragment = UserGroupsFragment()
+            val fragment: VkUserGroupsFragment = VkUserGroupsFragment()
             fragment.arguments = args
             return fragment
         }
@@ -58,8 +54,8 @@ class UserGroupsFragment : Fragment() {
         recyclerView.adapter = adapter
         val token = sharedPrefWrapper.getTokenFromPreferences()
 
-        viewModel.groupsLiveData.observe(this, Observer<List<Group>> { groups ->
-            adapter.submitList(groups)
+        viewModel?.groupsLiveData?.observe(this, Observer<List<Group>> { groups ->
+            adapter?.submitList(groups)
         })
 
         return view

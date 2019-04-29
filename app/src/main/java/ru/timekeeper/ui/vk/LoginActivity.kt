@@ -1,7 +1,6 @@
 package ru.timekeeper.ui.vk
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -18,7 +17,6 @@ import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var sPref: SharedPreferences
 
     @Inject
     lateinit var sharedPrefWrapper: SharedPrefWrapper

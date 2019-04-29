@@ -15,14 +15,11 @@ import ru.timekeeper.*
 import ru.timekeeper.adapters.VkPostAdapter
 import ru.timekeeper.data.network.model.groupWallRemote.Item
 import ru.timekeeper.data.network.model.groupsRemote.Group
-import ru.timekeeper.data.repository.VkRepository
 import ru.timekeeper.viewModels.VkGroupWallViewModel
 import javax.inject.Inject
 
 class VkGroupWallFragment : Fragment() {
 
-    @Inject
-    lateinit var repository: VkRepository
 
     private var sPref: SharedPreferences? = null
 
@@ -32,7 +29,7 @@ class VkGroupWallFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    lateinit var viewModel: VkGroupWallViewModel
+    private var viewModel: VkGroupWallViewModel? = null
 
     companion object {
         private var ARG_GROUP_ID = "group_id"
@@ -62,7 +59,7 @@ class VkGroupWallFragment : Fragment() {
         recyclerView.adapter = adapter
         val token = sharedPrefWrapper.getTokenFromPreferences()
 
-        viewModel.postsLiveData.observe(this, Observer<List<Item>> { posts ->
+        viewModel?.postsLiveData?.observe(this, Observer<List<Item>> { posts ->
             adapter.submitList(posts)
         })
         return view

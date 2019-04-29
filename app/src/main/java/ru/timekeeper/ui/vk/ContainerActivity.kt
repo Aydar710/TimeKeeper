@@ -27,7 +27,7 @@ class ContainerActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickList
 
     private fun onActionVkClicked() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container_main, UserGroupsFragment.newInstance(116812347))
+            .replace(R.id.container_main, VkUserGroupsFragment.newInstance(116812347))
             .commit()
     }
 

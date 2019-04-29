@@ -8,6 +8,7 @@ import ru.timekeeper.di.module.AppModule
 class App : Application() {
 
     companion object {
+        @Suppress("LateinitUsage")
         lateinit var component: AppComponent
     }
 
