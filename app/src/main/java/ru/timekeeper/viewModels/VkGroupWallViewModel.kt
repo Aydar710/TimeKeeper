@@ -16,6 +16,6 @@ class VkGroupWallViewModel @Inject constructor(private val repository: VkReposit
     var postsLiveData: LiveData<List<Item>> = LiveDataReactiveStreams.fromPublisher(posts.toFlowable())
 
     fun loadGroupWall(token: String): Single<List<Item>> =
-            repository.getGroupPosts("-57846937", token = token)
+            repository.getGroupPosts("-41696672", token = token)
                     .observeOn(AndroidSchedulers.mainThread())
 }

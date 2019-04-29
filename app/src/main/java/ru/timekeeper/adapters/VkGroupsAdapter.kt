@@ -12,7 +12,8 @@ import kotlinx.android.synthetic.main.card_vk_group.view.*
 import ru.timekeeper.R
 import ru.timekeeper.data.network.model.groupsRemote.Group
 
-class VkGroupsAdapter(val listItemClickListener : ListItemClickListener) : ListAdapter<Group, VkGroupsAdapter.GroupHolder>(GroupItemDiffCallback()) {
+class VkGroupsAdapter(val listItemClickListener : ListItemClickListener)
+    : ListAdapter<Group, VkGroupsAdapter.GroupHolder>(GroupItemDiffCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): GroupHolder {
