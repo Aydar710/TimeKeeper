@@ -5,16 +5,17 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.card_vk_group_wall.*
-import ru.timekeeper.R
 import ru.timekeeper.data.network.model.groupWallRemote.Item
+
 
 class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): PostHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_vk_group_wall, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(ru.timekeeper.R.layout.card_vk_group_wall, parent, false)
         return PostHolder(view)
     }
 
@@ -28,21 +29,42 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
             //txt_vk_group_name.text = post...
             txt_vk_post_date.text = post.date.toString()
             txt_vk_post_text.text = post.text
-            txt_vk_post_likes.text = post.likes?.count.toString()
-            txt_vk_post_comments.text = post.comments?.count.toString()
-            txt_vk_post_repost.text = post.reposts?.count.toString()
+            txt_vk_post_likes.text = ellipsize(post.likes?.count.toString())
+            txt_vk_post_comments.text = ellipsize(post.comments?.count.toString())
+            txt_vk_post_repost.text = ellipsize(post.reposts?.count.toString())
+            txt_vk_post_views.text = ellipsize(post.views?.count.toString())
 
-            Picasso.get()
-                    .load(
-                            getImageSize(post)?.let {
-                                post.attachments?.get(0)?.photo?.sizes?.get(it)?.url
+
+
+            group_post_items.visibility = View.GONE
+            val imageUrl = getImageSize(post)?.let { post.attachments?.get(0)?.photo?.sizes?.get(it)?.url }
+            imageUrl?.let {
+                Picasso.get()
+                        .load(it)
+                        .into(img_vk_post_photo, object : Callback {
+                            override fun onSuccess() {
+                                group_post_items.visibility = View.VISIBLE
                             }
-                    )
-                    .into(img_vk_post_photo)
+
+                            override fun onError(e: Exception?) {
+                                group_post_items.visibility = View.GONE
+                            }
+                        })
+            }
         }
     }
 
     fun getImageSize(post: Item): Int? =
             post.attachments?.get(0)?.photo?.sizes?.size?.minus(1)
+
+    fun ellipsize(text: CharSequence): CharSequence =
+            when (text.length) {
+                in 1..3 -> text
+                4 -> text[0] + "K"
+                5 -> text.subSequence(0, 1).toString() + "K"
+                6 -> text.subSequence(0, 2).toString() + "K"
+                else -> text[0] + "M"
+            }
+
 
 }

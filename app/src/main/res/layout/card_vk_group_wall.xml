@@ -1,161 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginBottom="12dp"
+    android:elevation="8dp"
+    card_view:cardCornerRadius="0dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_vk_group_photo"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/colorAccent" />
+    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txt_vk_group_name"
-        android:layout_width="wrap_content"
-        android:layout_height="17dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="19dp"
-        android:textColor="@android:color/black"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/img_vk_group_photo"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="GroupName" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_vk_group_photo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@color/colorAccent" />
 
-    <TextView
-        android:id="@+id/txt_vk_post_date"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="35dp"
-        android:textSize="10sp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_vk_group_photo"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SmallSp"
-        tools:text="7 марта в 20:50" />
+        <TextView
+            android:id="@+id/txt_vk_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/img_vk_group_photo"
+            app:layout_constraintTop_toTopOf="@id/img_vk_group_photo"
+            tools:layout_editor_absoluteY="19dp"
+            tools:text="GroupName" />
 
-    <TextView
-        android:id="@+id/txt_vk_post_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_vk_post_date"
-        tools:text="Lorem ipsum dolor sit amet" />
+        <TextView
+            android:id="@+id/txt_vk_post_date"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="16dp"
+            android:textSize="10sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_vk_group_photo"
+            app:layout_constraintTop_toBottomOf="@id/txt_vk_group_name"
+            tools:ignore="SmallSp"
+            tools:layout_editor_absoluteY="35dp"
+            tools:text="7 марта в 20:50" />
 
-    <ImageView
-        android:id="@+id/img_vk_post_photo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="400dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_vk_post_text"
-        app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@tools:sample/avatars[2]" />
+        <TextView
+            android:id="@+id/txt_vk_post_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_vk_post_date"
+            tools:text="Lorem ipsum dolor sit amet" />
 
-    <ImageView
-        android:id="@+id/img_vk_post_like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_vk_post_photo"
-        app:srcCompat="@drawable/ic_like_icon" />
+        <ImageView
+            android:id="@+id/img_vk_post_photo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_vk_post_text"
+            tools:srcCompat="@tools:sample/avatars[2]" />
 
-    <TextView
-        android:id="@+id/txt_vk_post_likes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:textSize="17sp"
-        app:layout_constraintLeft_toRightOf="@+id/img_vk_post_like"
-        app:layout_constraintTop_toBottomOf="@+id/img_vk_post_photo"
-        tools:text="11K" />
+        <ImageView
+            android:id="@+id/img_vk_post_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_vk_post_photo"
+            app:srcCompat="@drawable/ic_like_icon" />
 
-    <ImageView
-        android:id="@+id/img_vk_post_comments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_vk_post_photo"
-        app:srcCompat="@drawable/ic_comment_bubble"
-        tools:layout_editor_absoluteY="228dp" />
+        <TextView
+            android:id="@+id/txt_vk_post_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toRightOf="@+id/img_vk_post_like"
+            app:layout_constraintTop_toTopOf="@+id/img_vk_post_like"
+            tools:text="11K" />
 
-    <TextView
-        android:id="@+id/txt_vk_post_comments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textSize="17sp"
-        app:layout_constraintStart_toEndOf="@+id/img_vk_post_comments"
-        app:layout_constraintTop_toBottomOf="@id/img_vk_post_photo"
-        tools:text="120K" />
+        <ImageView
+            android:id="@+id/img_vk_post_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/img_vk_post_like"
+            app:layout_constraintTop_toBottomOf="@+id/img_vk_post_photo"
+            app:srcCompat="@drawable/ic_comment_bubble" />
 
-    <ImageView
-        android:id="@+id/img_vk_post_repost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="224dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_vk_post_photo"
-        app:srcCompat="@drawable/ic_repost_icon" />
+        <TextView
+            android:id="@+id/txt_vk_post_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="17sp"
+            app:layout_constraintStart_toEndOf="@+id/img_vk_post_comments"
+            app:layout_constraintTop_toTopOf="@id/img_vk_post_comments"
+            tools:layout_editor_absoluteY="229dp"
+            tools:text="12K" />
 
-    <TextView
-        android:id="@+id/txt_vk_post_repost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textSize="17sp"
-        app:layout_constraintLeft_toRightOf="@id/img_vk_post_repost"
-        app:layout_constraintTop_toBottomOf="@id/img_vk_post_photo"
-        tools:text="32K" />
+        <ImageView
+            android:id="@+id/img_vk_post_repost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/img_vk_post_comments"
+            app:layout_constraintTop_toBottomOf="@+id/img_vk_post_photo"
+            app:srcCompat="@drawable/ic_repost_icon" />
 
-    <ImageView
-        android:id="@+id/img_vk_post_views"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="56dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_vk_post_photo"
-        app:srcCompat="@drawable/ic_vk_post_views" />
+        <TextView
+            android:id="@+id/txt_vk_post_repost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="17sp"
+            app:layout_constraintStart_toEndOf="@id/img_vk_post_repost"
+            app:layout_constraintTop_toTopOf="@+id/img_vk_post_repost"
+            tools:text="32K" />
 
-    <TextView
-        android:id="@+id/txt_vk_post_views"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textSize="17sp"
-        app:layout_constraintLeft_toRightOf="@id/img_vk_post_views"
-        app:layout_constraintStart_toEndOf="@+id/img_vk_post_views"
-        app:layout_constraintTop_toBottomOf="@id/img_vk_post_photo"
-        tools:text="325K" />
+        <ImageView
+            android:id="@+id/img_vk_post_views"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/img_vk_post_repost"
+            app:layout_constraintTop_toBottomOf="@+id/img_vk_post_photo"
+            app:srcCompat="@drawable/ic_vk_post_views" />
+
+        <TextView
+            android:id="@+id/txt_vk_post_views"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:maxLines="1"
+            app:layout_constraintLeft_toRightOf="@id/img_vk_post_views"
+            app:layout_constraintStart_toEndOf="@+id/img_vk_post_views"
+            app:layout_constraintTop_toTopOf="@+id/img_vk_post_views"
+            tools:text="325K" />
+
+        <android.support.constraint.Group
+            android:id="@+id/group_post_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="img_vk_post_photo, img_vk_post_like, txt_vk_post_likes,
+        img_vk_post_comments, txt_vk_post_comments, img_vk_post_repost, txt_vk_post_repost,
+        img_vk_post_views, txt_vk_post_views" />
 
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

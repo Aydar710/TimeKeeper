@@ -2,5 +2,5 @@ package ru.timekeeper
 
 const val USER_ID = 116812347
 const val ACCESS_KEY =
-        "78eaa615bbd903ba1104fed89b6a28a5a4a01f026c7a53f61df18d0ec6d8c2a1fc7aaea05db1e1d0106f0"
-const val GROUP_ID = "-41696672"
+        "aa26345e9cbaacf865652dca0ae9d7b64e8ceb6a6eccc9e90b24930c2b9ef501ea7b6e988d2cd4d4c37e4"
+const val GROUP_ID = "-57846937"
