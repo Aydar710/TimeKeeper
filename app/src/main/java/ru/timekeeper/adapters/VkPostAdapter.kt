@@ -14,6 +14,9 @@ import ru.timekeeper.data.network.model.groupWallRemote.Item
 
 class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCallback()) {
 
+    var groupPhotoSource : String? = null
+    var groupName : String? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): PostHolder {
         val view = LayoutInflater.from(parent.context).inflate(ru.timekeeper.R.layout.card_vk_group_wall, parent, false)
         return PostHolder(view)
@@ -26,7 +29,7 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
     inner class PostHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(post: Item) {
-            //txt_vk_group_name.text = post...
+            txt_vk_group_name.text = groupName
             txt_vk_post_date.text = post.date.toString()
             if (post.text?.length != 0) {
                 txt_vk_post_text.visibility = View.VISIBLE
@@ -39,8 +42,8 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
             txt_vk_post_views.text = ellipsize(post.views?.count.toString())
 
 
-            val imageUrl = getImageSize(post)?.let { post.attachments?.get(0)?.photo?.sizes?.get(it)?.url }
-            imageUrl?.let {
+            val postImageUrl = getImageSize(post)?.let { post.attachments?.get(0)?.photo?.sizes?.get(it)?.url }
+            postImageUrl?.let {
                 Picasso.get()
                         .load(it)
                         .into(img_vk_post_photo, object : Callback {
@@ -53,6 +56,10 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
                             }
                         })
             }
+
+            Picasso.get()
+                    .load(groupPhotoSource)
+                    .into(img_vk_group_photo)
         }
     }
 
@@ -67,6 +74,4 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
                 6 -> text.subSequence(0, 2).toString() + "K"
                 else -> text[0] + "M"
             }
-
-
 }

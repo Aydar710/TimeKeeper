@@ -29,7 +29,7 @@ class VkGroupsAdapter(val listItemClickListener : ListItemClickListener)
     }
 
     interface ListItemClickListener{
-        fun onClick(group : Group)
+        fun onVkGroupClicked(group : Group)
     }
 
 
@@ -42,7 +42,7 @@ class VkGroupsAdapter(val listItemClickListener : ListItemClickListener)
             txt_group_name.text = group.name
 
             containerView.setOnClickListener {
-                listItemClickListener.onClick(group)
+                listItemClickListener.onVkGroupClicked(group)
             }
             Picasso.get()
                 .load(group.photo100)

@@ -5,18 +5,17 @@ import android.arch.lifecycle.LiveDataReactiveStreams
 import android.arch.lifecycle.ViewModel
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import ru.timekeeper.ACCESS_KEY
+import ru.timekeeper.SharedPrefWrapper
 import ru.timekeeper.USER_ID
 import ru.timekeeper.data.network.model.groupsRemote.Group
 import ru.timekeeper.data.repository.VkRepository
 import javax.inject.Inject
 
-class VkUserGroupsFragmentViewModel @Inject constructor(private val repository: VkRepository)
+class VkUserGroupsFragmentViewModel @Inject constructor(private val repository: VkRepository,
+                                                        private val sPref: SharedPrefWrapper)
     : ViewModel() {
 
-    private var groups: Single<List<Group>> =
-            loadUserGroups(
-                    ACCESS_KEY)
+    private var groups: Single<List<Group>> = loadUserGroups(sPref.getTokenFromPreferences())
 
     var groupsLiveData: LiveData<List<Group>> = LiveDataReactiveStreams.fromPublisher(groups.toFlowable())
 

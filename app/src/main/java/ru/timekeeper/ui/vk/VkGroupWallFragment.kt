@@ -3,15 +3,15 @@ package ru.timekeeper.ui.vk
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_vk_group_wall.view.*
-import ru.timekeeper.*
+import ru.timekeeper.App
+import ru.timekeeper.R
+import ru.timekeeper.SharedPrefWrapper
 import ru.timekeeper.adapters.VkPostAdapter
 import ru.timekeeper.data.network.model.groupWallRemote.Item
 import ru.timekeeper.data.network.model.groupsRemote.Group
@@ -19,9 +19,6 @@ import ru.timekeeper.viewModels.VkGroupWallViewModel
 import javax.inject.Inject
 
 class VkGroupWallFragment : Fragment() {
-
-
-    private var sPref: SharedPreferences? = null
 
     @Suppress("LateinitUsage")
     @Inject
@@ -56,6 +53,8 @@ class VkGroupWallFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_vk_group_wall, container, false)
         val recyclerView = view.recycler_vk_group_wall
         val adapter = VkPostAdapter()
+        adapter.groupName = arguments?.getString(ARG_GROUP_NAME) ?: ""
+        adapter.groupPhotoSource = arguments?.getString(ARG_GROUP_PHOTO_SRC) ?: ""
 
         val groupId: String = "-" + arguments?.getInt(ARG_GROUP_ID).toString()
         recyclerView.adapter = adapter
@@ -66,12 +65,4 @@ class VkGroupWallFragment : Fragment() {
         })
         return view
     }
-
-    fun getTokenFromPreferences(): String {
-        //sPref = activity?.getSharedPreferences(SHARED_PREF_FILENAME, AppCompatActivity.MODE_PRIVATE)
-        sPref = App.component.provideApp().getSharedPreferences(SHARED_PREF_FILENAME, AppCompatActivity.MODE_PRIVATE)
-        val token: String? = sPref?.getString(SHARED_PREF_TOKEN_KEY, "")
-        return token ?: ""
-    }
-
 }

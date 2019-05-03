@@ -9,7 +9,7 @@ import ru.timekeeper.di.module.AppModule
 import ru.timekeeper.di.module.SharedPrefModule
 import ru.timekeeper.di.module.ViewModelModule
 import ru.timekeeper.ui.vk.LoginActivity
-import ru.timekeeper.ui.vk.VkUserGroupsFragment
+import ru.timekeeper.ui.vk.VkGroupsFragment
 import ru.timekeeper.ui.vk.VkGroupWallFragment
 import javax.inject.Singleton
 
@@ -28,7 +28,7 @@ interface AppComponent {
 
     fun provideApp(): Context
 
-    fun inject(userGroupsFragment: VkUserGroupsFragment)
+    fun inject(userGroupsFragment: VkGroupsFragment)
     fun inject(vkGroupWallFragment: VkGroupWallFragment)
     fun inject(loginActivity: LoginActivity)
 }

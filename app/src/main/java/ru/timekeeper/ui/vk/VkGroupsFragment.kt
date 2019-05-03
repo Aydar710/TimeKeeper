@@ -17,7 +17,7 @@ import ru.timekeeper.data.network.model.groupsRemote.Group
 import ru.timekeeper.viewModels.VkUserGroupsFragmentViewModel
 import javax.inject.Inject
 
-class VkUserGroupsFragment : Fragment() {
+class VkGroupsFragment : Fragment() {
 
 
     var adapter: VkGroupsAdapter? = null
@@ -34,10 +34,10 @@ class VkUserGroupsFragment : Fragment() {
 
     companion object {
         private val ARG_USER_ID = "user_id"
-        fun newInstance(userId: Int): VkUserGroupsFragment {
+        fun newInstance(userId: Int): VkGroupsFragment {
             val args: Bundle = Bundle()
             args.putInt(ARG_USER_ID, userId)
-            val fragment: VkUserGroupsFragment = VkUserGroupsFragment()
+            val fragment: VkGroupsFragment = VkGroupsFragment()
             fragment.arguments = args
             return fragment
         }
@@ -50,7 +50,7 @@ class VkUserGroupsFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)[VkUserGroupsFragmentViewModel::class.java]
 
         val recyclerView = view.recycler_user_groups
-        val fragmentActivity: ContainerActivity = activity as ContainerActivity
+        val fragmentActivity: MainActivity = activity as MainActivity
         adapter = VkGroupsAdapter(fragmentActivity)
         val userId: String = arguments?.getInt(ARG_USER_ID).toString()
         recyclerView.adapter = adapter

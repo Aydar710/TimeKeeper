@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun startContainerActivity() {
-        val intent = Intent(this, ContainerActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 }
