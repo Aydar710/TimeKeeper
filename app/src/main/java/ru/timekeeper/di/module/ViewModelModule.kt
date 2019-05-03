@@ -8,16 +8,16 @@ import dagger.multibindings.IntoMap
 import ru.timekeeper.ViewModelFactory
 import ru.timekeeper.ViewModelKey
 import ru.timekeeper.viewModels.VkGroupWallViewModel
-import ru.timekeeper.viewModels.VkUserGroupsFragmentViewModel
+import ru.timekeeper.viewModels.VkGroupsFragmentViewModel
 
 @Module
 abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(VkUserGroupsFragmentViewModel::class)
+    @ViewModelKey(VkGroupsFragmentViewModel::class)
     internal abstract fun bindVkUserGroupsFragmentViewModel(
-            viewModel: VkUserGroupsFragmentViewModel): ViewModel
+            viewModel: VkGroupsFragmentViewModel): ViewModel
 
     @Binds
     @IntoMap

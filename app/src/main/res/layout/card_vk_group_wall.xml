@@ -57,7 +57,7 @@
 
         <TextView
             android:id="@+id/txt_vk_post_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
@@ -79,7 +79,6 @@
             android:scaleType="centerCrop"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_vk_post_text"
             tools:srcCompat="@tools:sample/avatars[2]" />
@@ -169,15 +168,6 @@
             app:layout_constraintStart_toEndOf="@+id/img_vk_post_views"
             app:layout_constraintTop_toTopOf="@+id/img_vk_post_views"
             tools:text="325K" />
-
-        <android.support.constraint.Group
-            android:id="@+id/group_post_items"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="img_vk_post_photo, img_vk_post_like, txt_vk_post_likes,
-        img_vk_post_comments, txt_vk_post_comments, img_vk_post_repost, txt_vk_post_repost,
-        img_vk_post_views, txt_vk_post_views" />
-
 
     </android.support.constraint.ConstraintLayout>
 

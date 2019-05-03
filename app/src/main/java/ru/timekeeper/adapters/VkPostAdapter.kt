@@ -9,8 +9,9 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.card_vk_group_wall.*
+import ru.timekeeper.K_LETTER
+import ru.timekeeper.M_LETTER
 import ru.timekeeper.data.network.model.groupWallRemote.Item
-
 
 class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCallback()) {
 
@@ -48,11 +49,11 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
                         .load(it)
                         .into(img_vk_post_photo, object : Callback {
                             override fun onSuccess() {
-                                group_post_items.visibility = View.VISIBLE
+                                img_vk_post_photo.visibility = View.VISIBLE
                             }
 
                             override fun onError(e: Exception?) {
-                                group_post_items.visibility = View.GONE
+                                img_vk_post_photo.visibility = View.GONE
                             }
                         })
             }
@@ -69,9 +70,9 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
     fun ellipsize(text: CharSequence): CharSequence =
             when (text.length) {
                 in 1..3 -> text
-                4 -> text[0] + "K"
-                5 -> text.subSequence(0, 1).toString() + "K"
-                6 -> text.subSequence(0, 2).toString() + "K"
-                else -> text[0] + "M"
+                4 -> text[0] + K_LETTER
+                5 -> text.subSequence(0, 1).toString() + K_LETTER
+                6 -> text.subSequence(0, 2).toString() + K_LETTER
+                else -> text[0] + M_LETTER
             }
 }

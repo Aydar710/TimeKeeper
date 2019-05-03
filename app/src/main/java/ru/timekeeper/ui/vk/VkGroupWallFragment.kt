@@ -60,9 +60,11 @@ class VkGroupWallFragment : Fragment() {
         recyclerView.adapter = adapter
         val token = sharedPrefWrapper.getTokenFromPreferences()
 
-        viewModel?.postsLiveData?.observe(this, Observer<List<Item>> { posts ->
+        viewModel?.posts?.observe(this, Observer<List<Item>> { posts ->
             adapter.submitList(posts)
         })
+
+        viewModel?.loadGroupWall(token, groupId)
         return view
     }
 }

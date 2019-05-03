@@ -4,21 +4,22 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.timekeeper.SharedPrefWrapper
-import ru.timekeeper.data.network.model.groupWallRemote.Item
+import ru.timekeeper.data.network.model.groupsRemote.Group
 import ru.timekeeper.data.repository.VkRepository
 import javax.inject.Inject
 
-class VkGroupWallViewModel @Inject constructor(private val repository: VkRepository,
-                                               private val sPref: SharedPrefWrapper)
+class VkGroupsFragmentViewModel @Inject constructor(private val repository: VkRepository,
+                                                    private val sPref: SharedPrefWrapper)
     : ViewModel() {
 
-    val posts: MutableLiveData<List<Item>> = MutableLiveData()
+    var groups : MutableLiveData<List<Group>> = MutableLiveData()
 
-    fun loadGroupWall(token: String, groupId: String) {
-        repository.getGroupPosts(groupId = groupId, token = token)
+
+    fun getUserGroups(token: String, userId : String){
+        repository.getUsersGroups(userId, token = token)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    posts.value = it
+                    groups.value = it
                 },{
                     it.printStackTrace()
                 })

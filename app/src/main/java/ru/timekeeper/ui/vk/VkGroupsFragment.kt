@@ -14,7 +14,7 @@ import ru.timekeeper.R
 import ru.timekeeper.SharedPrefWrapper
 import ru.timekeeper.adapters.VkGroupsAdapter
 import ru.timekeeper.data.network.model.groupsRemote.Group
-import ru.timekeeper.viewModels.VkUserGroupsFragmentViewModel
+import ru.timekeeper.viewModels.VkGroupsFragmentViewModel
 import javax.inject.Inject
 
 class VkGroupsFragment : Fragment() {
@@ -30,7 +30,7 @@ class VkGroupsFragment : Fragment() {
     @Inject
     lateinit var sharedPrefWrapper: SharedPrefWrapper
 
-    private var viewModel: VkUserGroupsFragmentViewModel? = null
+    private var viewModel: VkGroupsFragmentViewModel? = null
 
     companion object {
         private val ARG_USER_ID = "user_id"
@@ -47,19 +47,20 @@ class VkGroupsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_user_groups, container, false)
         App.component.inject(this)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[VkUserGroupsFragmentViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[VkGroupsFragmentViewModel::class.java]
 
         val recyclerView = view.recycler_user_groups
         val fragmentActivity: MainActivity = activity as MainActivity
         adapter = VkGroupsAdapter(fragmentActivity)
         val userId: String = arguments?.getInt(ARG_USER_ID).toString()
-        recyclerView.adapter = adapter
         val token = sharedPrefWrapper.getTokenFromPreferences()
+        recyclerView.adapter = adapter
 
-        viewModel?.groupsLiveData?.observe(this, Observer<List<Group>> { groups ->
+        viewModel?.groups?.observe(this, Observer<List<Group>> { groups ->
             adapter?.submitList(groups)
         })
 
+        viewModel?.getUserGroups(token, userId)
         return view
     }
 }
