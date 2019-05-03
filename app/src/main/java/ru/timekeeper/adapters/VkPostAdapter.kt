@@ -28,15 +28,17 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
         fun bind(post: Item) {
             //txt_vk_group_name.text = post...
             txt_vk_post_date.text = post.date.toString()
-            txt_vk_post_text.text = post.text
+            if (post.text?.length != 0) {
+                txt_vk_post_text.visibility = View.VISIBLE
+                txt_vk_post_text.text = post.text
+            }
+
             txt_vk_post_likes.text = ellipsize(post.likes?.count.toString())
             txt_vk_post_comments.text = ellipsize(post.comments?.count.toString())
             txt_vk_post_repost.text = ellipsize(post.reposts?.count.toString())
             txt_vk_post_views.text = ellipsize(post.views?.count.toString())
 
 
-
-            group_post_items.visibility = View.GONE
             val imageUrl = getImageSize(post)?.let { post.attachments?.get(0)?.photo?.sizes?.get(it)?.url }
             imageUrl?.let {
                 Picasso.get()

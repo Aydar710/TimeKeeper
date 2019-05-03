@@ -13,6 +13,7 @@ class ContainerActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container)
+        setSupportActionBar(toolbar)
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
