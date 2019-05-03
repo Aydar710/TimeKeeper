@@ -48,6 +48,7 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
                 Picasso.get()
                         .load(it)
                         .into(img_vk_post_photo, object : Callback {
+
                             override fun onSuccess() {
                                 img_vk_post_photo.visibility = View.VISIBLE
                             }
