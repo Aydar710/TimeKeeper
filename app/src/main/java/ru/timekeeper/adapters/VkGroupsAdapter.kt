@@ -36,7 +36,6 @@ class VkGroupsAdapter(val listItemClickListener : ListItemClickListener)
     inner class GroupHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
         LayoutContainer {
         var imgGroup = containerView.img_group
-        var txtGroupName = containerView.txt_group_name
 
         fun bind(group: Group) {
             txt_group_name.text = group.name
