@@ -58,7 +58,7 @@ class VkGroupWallFragment : Fragment() {
 
         val groupId: String = "-" + arguments?.getInt(ARG_GROUP_ID).toString()
         recyclerView.adapter = adapter
-        val token = sharedPrefWrapper.getTokenFromPreferences()
+        val token = sharedPrefWrapper.getVkToken()
 
         viewModel?.posts?.observe(this, Observer<List<Item>> { posts ->
             adapter.submitList(posts)

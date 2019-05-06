@@ -53,7 +53,7 @@ class VkGroupsFragment : Fragment() {
         val fragmentActivity: MainActivity = activity as MainActivity
         adapter = VkGroupsAdapter(fragmentActivity)
         val userId: String = arguments?.getInt(ARG_USER_ID).toString()
-        val token = sharedPrefWrapper.getTokenFromPreferences()
+        val token = sharedPrefWrapper.getVkToken()
         recyclerView.adapter = adapter
 
         viewModel?.groups?.observe(this, Observer<List<Group>> { groups ->

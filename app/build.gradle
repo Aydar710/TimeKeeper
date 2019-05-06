@@ -76,4 +76,7 @@ dependencies {
     implementation "android.arch.lifecycle:reactivestreams:1.1.1"
     implementation "android.arch.lifecycle:extensions:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+
+    //Facebook API
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 }

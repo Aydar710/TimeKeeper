@@ -9,14 +9,23 @@ class SharedPrefWrapper(context: Context) {
     private val sPref: SharedPreferences =
             context.getSharedPreferences(SHARED_PREF_FILENAME, AppCompatActivity.MODE_PRIVATE)
 
-    fun saveTokenToPreferences(token: String) {
+    fun saveVkToken(token: String) {
         sPref.edit().run {
-            putString(SHARED_PREF_TOKEN_KEY, token)
+            putString(SHARED_PREF_VK_TOKEN_KEY, token)
             apply()
         }
     }
 
-    fun getTokenFromPreferences(): String =
-            sPref.getString(SHARED_PREF_TOKEN_KEY, "")
+    fun getVkToken(): String =
+            sPref.getString(SHARED_PREF_VK_TOKEN_KEY, "")
 
+    fun saveFacebookToken(token: String) {
+        sPref.edit().run {
+            putString(SHARED_PREF_FACEBOOK_TOKEN_KEY, token)
+            apply()
+        }
+    }
+
+    fun getFacebookToken(): String =
+            sPref.getString(SHARED_PREF_FACEBOOK_TOKEN_KEY, "")
 }
