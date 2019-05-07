@@ -3,8 +3,8 @@ package ru.timekeeper.data.service
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.timekeeper.data.network.model.groupWallRemote.GroupWallResponseWrapper
-import ru.timekeeper.data.network.model.groupsRemote.GroupsResponseWrapper
+import ru.timekeeper.data.network.model.vkontakte.groupWallRemote.GroupWallResponseWrapper
+import ru.timekeeper.data.network.model.vkontakte.groupsRemote.GroupsResponseWrapper
 
 interface VkService {
 
