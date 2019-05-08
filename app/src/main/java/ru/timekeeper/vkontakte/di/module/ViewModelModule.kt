@@ -7,8 +7,9 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.timekeeper.common.ViewModelFactory
 import ru.timekeeper.common.ViewModelKey
-import ru.timekeeper.vkontakte.viewModels.VkGroupWallViewModel
-import ru.timekeeper.vkontakte.viewModels.VkGroupsFragmentViewModel
+import ru.timekeeper.facebook.viewmodels.FacebookGroupListViewModel
+import ru.timekeeper.vkontakte.viewmodels.VkGroupWallViewModel
+import ru.timekeeper.vkontakte.viewmodels.VkGroupsFragmentViewModel
 
 @Module
 abstract class ViewModelModule {
@@ -23,6 +24,12 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(VkGroupWallViewModel::class)
     internal abstract fun bindVkGroupWallViewModel(viewModel: VkGroupWallViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FacebookGroupListViewModel::class)
+    internal abstract fun bindFacebookGroupListViewModel(viewModel: FacebookGroupListViewModel)
+            : ViewModel
 
     @Binds
     internal abstract fun bindViewModelFactory(

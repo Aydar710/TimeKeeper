@@ -1,4 +1,4 @@
-package ru.timekeeper.vkontakte.viewModels
+package ru.timekeeper.vkontakte.viewmodels
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel

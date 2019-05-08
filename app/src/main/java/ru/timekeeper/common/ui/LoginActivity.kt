@@ -20,12 +20,11 @@ import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
-
     @Suppress("LateinitUsage")
     @Inject
     lateinit var sharedPrefWrapper: SharedPrefWrapper
 
-    private val facebookCallbackManager = CallbackManager.Factory.create();
+    private val facebookCallbackManager = CallbackManager.Factory.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
         btn_login_facebook.registerCallback(facebookCallbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 sharedPrefWrapper.saveFacebookToken(loginResult.accessToken.token)
+                startContainerActivity()
             }
 
             override fun onCancel() {
@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onError(exception: FacebookException) {
             }
         })
-        startContainerActivity()
+        //startContainerActivity()
 
     }
 

@@ -4,15 +4,15 @@
     <item
         android:id="@+id/action_vk"
         android:icon="@drawable/ic_app"
-        android:title="Вконтакте" />
+        android:title="Vkontakte" />
 
     <item
         android:id="@+id/action_favorites"
         android:icon="@drawable/ic_app"
-        android:title="Избранное" />
+        android:title="Favorites" />
 
     <item
         android:id="@+id/action_facebook"
         android:icon="@drawable/ic_app"
-        android:title="Фейсбук" />
+        android:title="Facebook" />
 </menu>

@@ -35,10 +35,10 @@ class VkGroupsAdapter(val listItemClickListener : ListItemClickListener)
 
     inner class GroupHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
         LayoutContainer {
-        var imgGroup = containerView.img_group
+        var imgGroup = containerView.img_vk_group
 
         fun bind(group: Group) {
-            txt_facebook_group_name.text = group.name
+            txt_vk_group_name.text = group.name
 
             containerView.setOnClickListener {
                 listItemClickListener.onVkGroupClicked(group)

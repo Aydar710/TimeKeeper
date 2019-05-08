@@ -15,7 +15,7 @@ import ru.timekeeper.common.SharedPrefWrapper
 import ru.timekeeper.common.ui.MainActivity
 import ru.timekeeper.data.network.model.vkontakte.groupsRemote.Group
 import ru.timekeeper.vkontakte.adapters.VkGroupsAdapter
-import ru.timekeeper.vkontakte.viewModels.VkGroupsFragmentViewModel
+import ru.timekeeper.vkontakte.viewmodels.VkGroupsFragmentViewModel
 import javax.inject.Inject
 
 class VkGroupListFragment : Fragment() {

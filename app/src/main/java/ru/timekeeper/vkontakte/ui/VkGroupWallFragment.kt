@@ -15,7 +15,7 @@ import ru.timekeeper.common.SharedPrefWrapper
 import ru.timekeeper.vkontakte.adapters.VkPostAdapter
 import ru.timekeeper.data.network.model.vkontakte.groupWallRemote.Item
 import ru.timekeeper.data.network.model.vkontakte.groupsRemote.Group
-import ru.timekeeper.vkontakte.viewModels.VkGroupWallViewModel
+import ru.timekeeper.vkontakte.viewmodels.VkGroupWallViewModel
 import javax.inject.Inject
 
 class VkGroupWallFragment : Fragment() {
