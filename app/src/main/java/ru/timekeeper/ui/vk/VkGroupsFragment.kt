@@ -60,7 +60,7 @@ class VkGroupsFragment : Fragment() {
             adapter?.submitList(groups)
         })
 
-        viewModel?.getUserGroups(token, userId)
+        viewModel?.getUserGroups(userId)
         return view
     }
 }

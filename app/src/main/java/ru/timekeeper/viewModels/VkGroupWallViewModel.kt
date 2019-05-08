@@ -14,8 +14,8 @@ class VkGroupWallViewModel @Inject constructor(private val repository: VkReposit
 
     val posts: MutableLiveData<List<Item>> = MutableLiveData()
 
-    fun loadGroupWall(token: String, groupId: String) {
-        repository.getGroupPosts(groupId = groupId, token = token)
+    fun loadGroupWall(groupId: String) {
+        repository.getGroupPosts(groupId = groupId, token = sPref.getTokenFromPreferences())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     posts.value = it

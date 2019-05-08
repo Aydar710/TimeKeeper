@@ -64,7 +64,7 @@ class VkGroupWallFragment : Fragment() {
             adapter.submitList(posts)
         })
 
-        viewModel?.loadGroupWall(token, groupId)
+        viewModel?.loadGroupWall(groupId)
         return view
     }
 }
