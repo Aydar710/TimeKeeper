@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
-
     @Suppress("LateinitUsage")
     @Inject
     lateinit var sharedPrefWrapper: SharedPrefWrapper
