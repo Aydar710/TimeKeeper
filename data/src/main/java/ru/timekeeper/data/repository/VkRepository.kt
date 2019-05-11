@@ -25,6 +25,4 @@ class VkRepository(private val vkService: VkService) {
                     .map {
                         it?.items
                     }
-
-
 }

@@ -12,7 +12,8 @@ import kotlinx.android.synthetic.main.card_vk_group.view.*
 import ru.timekeeper.R
 import ru.timekeeper.data.network.model.groupsRemote.Group
 
-class VkGroupsAdapter(val listItemClickListener : ListItemClickListener)
+class VkGroupsAdapter(private val listItemClickListener: ListItemClickListener,
+                      private val favoritesClickListener: (Int) -> Unit)
     : ListAdapter<Group, VkGroupsAdapter.GroupHolder>(GroupItemDiffCallback()) {
 
 
@@ -28,24 +29,31 @@ class VkGroupsAdapter(val listItemClickListener : ListItemClickListener)
         }
     }
 
-    interface ListItemClickListener{
-        fun onVkGroupClicked(group : Group)
+    interface ListItemClickListener {
+        fun onVkGroupClicked(group: Group)
     }
 
 
     inner class GroupHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
-        LayoutContainer {
+            LayoutContainer {
         var imgGroup = containerView.img_group
 
         fun bind(group: Group) {
             txt_group_name.text = group.name
 
+            if (group.isFavorite){
+                img_favorite.setImageResource(R.drawable.ic_star_filled)
+            }
+
             containerView.setOnClickListener {
                 listItemClickListener.onVkGroupClicked(group)
             }
+            img_favorite.setOnClickListener {
+                group.id?.let { GroupId -> favoritesClickListener(GroupId) }
+            }
             Picasso.get()
-                .load(group.photo100)
-                .into(imgGroup)
+                    .load(group.photo100)
+                    .into(imgGroup)
 
         }
     }

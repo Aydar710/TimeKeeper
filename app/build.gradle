@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 detekt {
     version = "1.0.0-RC12"
@@ -60,6 +61,7 @@ dependencies {
 
     implementation daggerDeps.values()
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.google.firebase:firebase-database:16.0.4'
     kapt daggerKapt.values()
 
     implementation networkDeps.values()
@@ -76,4 +78,5 @@ dependencies {
     implementation "android.arch.lifecycle:reactivestreams:1.1.1"
     implementation "android.arch.lifecycle:extensions:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    implementation 'com.google.firebase:firebase-firestore:19.0.0'
 }

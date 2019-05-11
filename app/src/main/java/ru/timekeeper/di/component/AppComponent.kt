@@ -9,8 +9,8 @@ import ru.timekeeper.di.module.AppModule
 import ru.timekeeper.di.module.SharedPrefModule
 import ru.timekeeper.di.module.ViewModelModule
 import ru.timekeeper.ui.vk.LoginActivity
-import ru.timekeeper.ui.vk.VkGroupsFragment
 import ru.timekeeper.ui.vk.VkGroupWallFragment
+import ru.timekeeper.ui.vk.VkGroupsFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -21,7 +21,8 @@ import javax.inject.Singleton
             ServiceModule::class,
             RepositoryModule::class,
             ViewModelModule::class,
-            SharedPrefModule::class
+            SharedPrefModule::class,
+            FireStoreModule::class
         ]
 )
 interface AppComponent {
