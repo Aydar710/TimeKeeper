@@ -15,9 +15,7 @@ import ru.timekeeper.data.network.model.groupsRemote.Group
 import ru.timekeeper.viewModels.VkGroupsFragmentViewModel
 import javax.inject.Inject
 
-
 class VkGroupsFragment : Fragment() {
-
 
     lateinit var adapter: VkGroupsAdapter
 
@@ -26,8 +24,6 @@ class VkGroupsFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private var viewModel: VkGroupsFragmentViewModel? = null
-
-    var count = 1
 
     companion object {
         private val ARG_USER_ID = "user_id"
@@ -62,7 +58,7 @@ class VkGroupsFragment : Fragment() {
             adapter.submitList(list)
         })
 
-        viewModel?.getUserGroups(userId)
+        viewModel?.getGroups(userId)
         return view
     }
 

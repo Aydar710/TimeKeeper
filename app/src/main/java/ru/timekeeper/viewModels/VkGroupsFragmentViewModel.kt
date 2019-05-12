@@ -2,6 +2,7 @@ package ru.timekeeper.viewModels
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.google.firebase.firestore.CollectionReference
 import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.timekeeper.App
 import ru.timekeeper.SharedPrefWrapper
@@ -10,21 +11,31 @@ import ru.timekeeper.data.repository.VkRepository
 import javax.inject.Inject
 
 class VkGroupsFragmentViewModel @Inject constructor(
-        private val repository: VkRepository,
-        private val sPref: SharedPrefWrapper
+    private val repository: VkRepository,
+    private val sPref: SharedPrefWrapper,
+    private val idsCollection: CollectionReference
 ) : ViewModel() {
 
     var groups: MutableLiveData<List<Group>> = MutableLiveData()
 
+    var favoriteGroupIds = mutableListOf<String>()
 
-    fun getUserGroups(userId: String) {
+    private fun changeGroupsValue(userId: String) {
         repository.getUsersGroups(userId = userId, token = sPref.getTokenFromPreferences())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    groups.value = it
-                }, {
-                    it.printStackTrace()
-                })
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { groups ->
+                groups.forEach { group ->
+                    if (checkIfFavoriteGroupIdsContains(group.id)) {
+                        group.isFavorite = true
+                    }
+                }
+                groups
+            }
+            .subscribe({
+                groups.value = it
+            }, {
+                it.printStackTrace()
+            })
     }
 
     fun addFavoriteGroup(groupId: Int) {
@@ -49,4 +60,28 @@ class VkGroupsFragmentViewModel @Inject constructor(
         return -1
     }
 
+    fun getGroups(userId: String) {
+        val ids = mutableListOf<String>()
+        idsCollection.get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        val data = document.data
+                        val id = data["id"]
+                        val idStr = id.toString()
+                        ids.add(idStr)
+                    }
+                }
+                favoriteGroupIds.addAll(ids)
+                changeGroupsValue(userId)
+            }
+    }
+
+    fun checkIfFavoriteGroupIdsContains(checkingId: Int?): Boolean {
+        favoriteGroupIds.forEach {
+            if (it.equals(checkingId.toString()))
+                return true
+        }
+        return false
+    }
 }

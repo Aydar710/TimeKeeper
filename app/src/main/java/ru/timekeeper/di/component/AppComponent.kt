@@ -21,8 +21,7 @@ import javax.inject.Singleton
             ServiceModule::class,
             RepositoryModule::class,
             ViewModelModule::class,
-            SharedPrefModule::class,
-            FireStoreModule::class
+            SharedPrefModule::class
         ]
 )
 interface AppComponent {

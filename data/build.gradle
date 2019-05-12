@@ -32,6 +32,7 @@ dependencies {
     implementation kotlinDeps.values()
 
     implementation daggerDeps.values()
+    implementation 'com.google.firebase:firebase-firestore:17.1.2'
     kapt daggerKapt.values()
 
     implementation networkDeps.values()
