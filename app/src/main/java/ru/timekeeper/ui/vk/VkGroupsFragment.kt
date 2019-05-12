@@ -41,7 +41,6 @@ class VkGroupsFragment : Fragment() {
         App.component.inject(this)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[VkGroupsFragmentViewModel::class.java]
-
         val recyclerView = view.recycler_user_groups
         val fragmentActivity: MainActivity = activity as MainActivity
         adapter = VkGroupsAdapter(fragmentActivity) {
@@ -63,6 +62,6 @@ class VkGroupsFragment : Fragment() {
     }
 
     private fun onImgFavoriteClicked(groupId: Int) {
-        viewModel?.addFavoriteGroup(groupId)
+        viewModel?.onStarClicked(groupId)
     }
 }
