@@ -9,7 +9,7 @@ import ru.timekeeper.data.network.model.groupsRemote.Group
 import ru.timekeeper.data.repository.VkRepository
 import javax.inject.Inject
 
-class VkGroupsFragmentViewModel @Inject constructor(
+class VkGroupsViewModel @Inject constructor(
     private val repository: VkRepository,
     private val sPref: SharedPrefWrapper,
     private val idsCollection: CollectionReference

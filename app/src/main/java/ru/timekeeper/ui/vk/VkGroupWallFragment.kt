@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_vk_group_wall.view.*
 import ru.timekeeper.App
 import ru.timekeeper.R
-import ru.timekeeper.SharedPrefWrapper
 import ru.timekeeper.adapters.VkPostAdapter
 import ru.timekeeper.data.network.model.groupWallRemote.Item
 import ru.timekeeper.data.network.model.groupsRemote.Group
@@ -19,10 +18,6 @@ import ru.timekeeper.viewModels.VkGroupWallViewModel
 import javax.inject.Inject
 
 class VkGroupWallFragment : Fragment() {
-
-    @Suppress("LateinitUsage")
-    @Inject
-    lateinit var sharedPrefWrapper: SharedPrefWrapper
 
     @Suppress("LateinitUsage")
     @Inject
@@ -58,7 +53,6 @@ class VkGroupWallFragment : Fragment() {
 
         val groupId: String = "-" + arguments?.getInt(ARG_GROUP_ID).toString()
         recyclerView.adapter = adapter
-        val token = sharedPrefWrapper.getTokenFromPreferences()
 
         viewModel?.posts?.observe(this, Observer<List<Item>> { posts ->
             adapter.submitList(posts)

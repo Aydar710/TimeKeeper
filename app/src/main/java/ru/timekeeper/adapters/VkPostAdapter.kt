@@ -30,7 +30,7 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
     inner class PostHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(post: Item) {
-            txt_vk_group_name.text = groupName
+            txt_vk_group_name.text = post.groupName
             txt_vk_post_date.text = post.date.toString()
             if (post.text?.length != 0) {
                 txt_vk_post_text.visibility = View.VISIBLE
@@ -60,7 +60,7 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
             }
 
             Picasso.get()
-                    .load(groupPhotoSource)
+                    .load(post.groupPhoto)
                     .into(img_vk_group_photo)
         }
     }

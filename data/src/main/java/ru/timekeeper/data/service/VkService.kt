@@ -3,6 +3,7 @@ package ru.timekeeper.data.service
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
+import ru.timekeeper.data.network.model.groupByIdRemote.GroupByIdResponseWrapper
 import ru.timekeeper.data.network.model.groupWallRemote.GroupWallResponseWrapper
 import ru.timekeeper.data.network.model.groupsRemote.GroupsResponseWrapper
 
@@ -12,22 +13,28 @@ interface VkService {
     fun getGroupPosts(
         @Query("owner_id") ownerId: String,
         @Query("count") count: String,
-        @Query("access_token") access_token : String
+        @Query("access_token") access_token: String
     ): Single<GroupWallResponseWrapper>
 
 
     @GET("groups.search")
     fun getGroups(
-        @Query("q") queryText : String?,
-        @Query("access_token") access_token : String
+        @Query("q") queryText: String?,
+        @Query("access_token") access_token: String
 //            @Query("type") type : String = "group"
-    ) : Single<GroupsResponseWrapper>
+    ): Single<GroupsResponseWrapper>
 
     @GET("groups.get")
     fun getUsersGroups(
-        @Query("user_id") userId : String,
-        @Query("extended") extended : String = "1",
-        @Query("count") count : String = "15",
-        @Query("access_token") token : String
-    ) : Single<GroupsResponseWrapper>
+        @Query("user_id") userId: String,
+        @Query("extended") extended: String = "1",
+        @Query("count") count: String = "15",
+        @Query("access_token") token: String
+    ): Single<GroupsResponseWrapper>
+
+    @GET("groups.getById")
+    fun getGroupById(
+        @Query("group_ids") groupId: String,
+        @Query("access_token") token: String
+    ): Single<GroupByIdResponseWrapper>
 }

@@ -7,17 +7,19 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.timekeeper.ViewModelFactory
 import ru.timekeeper.ViewModelKey
+import ru.timekeeper.viewModels.CombinedFeedViewModel
 import ru.timekeeper.viewModels.VkGroupWallViewModel
-import ru.timekeeper.viewModels.VkGroupsFragmentViewModel
+import ru.timekeeper.viewModels.VkGroupsViewModel
 
 @Module
 abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(VkGroupsFragmentViewModel::class)
+    @ViewModelKey(VkGroupsViewModel::class)
     internal abstract fun bindVkUserGroupsFragmentViewModel(
-            viewModel: VkGroupsFragmentViewModel): ViewModel
+        viewModel: VkGroupsViewModel
+    ): ViewModel
 
     @Binds
     @IntoMap
@@ -25,6 +27,12 @@ abstract class ViewModelModule {
     internal abstract fun bindVkGroupWallViewModel(viewModel: VkGroupWallViewModel): ViewModel
 
     @Binds
+    @IntoMap
+    @ViewModelKey(CombinedFeedViewModel::class)
+    internal abstract fun bindCombinedFeedViewModel(viewModel: CombinedFeedViewModel): ViewModel
+
+    @Binds
     internal abstract fun bindViewModelFactory(
-            factory: ViewModelFactory): ViewModelProvider.Factory
+        factory: ViewModelFactory
+    ): ViewModelProvider.Factory
 }

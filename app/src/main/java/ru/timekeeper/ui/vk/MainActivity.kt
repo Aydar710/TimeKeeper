@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickListener 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.action_vk -> onActionVkClicked()
+                R.id.action_favorites -> doCombinedFeedTransaction()
             }
             true
         }
@@ -37,6 +38,13 @@ class MainActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickListener 
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction()
             .replace(R.id.container_main, VkGroupWallFragment.newInstance(group))
+            .commit()
+    }
+
+    private fun doCombinedFeedTransaction() {
+        val fragmentManager = supportFragmentManager
+        fragmentManager.beginTransaction()
+            .replace(R.id.container_main, CombinedFeedFragment())
             .commit()
     }
 }

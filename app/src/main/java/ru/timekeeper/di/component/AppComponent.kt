@@ -8,6 +8,7 @@ import ru.timekeeper.data.di.module.ServiceModule
 import ru.timekeeper.di.module.AppModule
 import ru.timekeeper.di.module.SharedPrefModule
 import ru.timekeeper.di.module.ViewModelModule
+import ru.timekeeper.ui.vk.CombinedFeedFragment
 import ru.timekeeper.ui.vk.LoginActivity
 import ru.timekeeper.ui.vk.VkGroupWallFragment
 import ru.timekeeper.ui.vk.VkGroupsFragment
@@ -31,4 +32,5 @@ interface AppComponent {
     fun inject(userGroupsFragment: VkGroupsFragment)
     fun inject(vkGroupWallFragment: VkGroupWallFragment)
     fun inject(loginActivity: LoginActivity)
+    fun inject(combinedFeedFragment: CombinedFeedFragment)
 }

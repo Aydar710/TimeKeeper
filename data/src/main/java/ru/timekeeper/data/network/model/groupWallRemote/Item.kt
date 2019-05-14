@@ -49,6 +49,7 @@ data class Item(
     val views: Views? = null,
     @SerializedName("is_favorite")
     @Expose
-    val isFavorite: Boolean? = null
-
+    val isFavorite: Boolean? = null,
+    var groupName : String? = null,
+    var groupPhoto : String? = null
 )
