@@ -40,5 +40,4 @@ data class Group(
         val photo200: String? = null,
 
         var isFavorite: Boolean = false
-
 )

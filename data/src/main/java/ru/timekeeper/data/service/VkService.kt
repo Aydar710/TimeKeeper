@@ -34,8 +34,8 @@ interface VkService {
     ): Single<GroupsResponseWrapper>
 
     @GET("groups.getById")
-    fun getGroupById(
-        @Query("group_ids") groupId: String,
-        @Query("access_token") token: String
+    fun getGroupsById(
+            @Query("group_ids") groupIds: String,
+            @Query("access_token") token: String
     ): Single<GroupByIdResponseWrapper>
 }

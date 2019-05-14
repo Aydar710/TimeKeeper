@@ -4,6 +4,7 @@ import android.app.Application
 import com.facebook.stetho.Stetho
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.vk.api.sdk.VK
 import ru.timekeeper.di.component.AppComponent
 import ru.timekeeper.di.component.DaggerAppComponent
 import ru.timekeeper.di.module.AppModule
@@ -18,7 +19,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        VK.initialize(this)
         val db = FirebaseFirestore.getInstance()
         idsCollection = db.collection(FIREBASE_COLLECTION_NAME_IDS)
 

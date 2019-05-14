@@ -73,8 +73,8 @@ class VkGroupWallFragment : Fragment() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val visibleItemCount = manager.getChildCount()
-                val totalItemCount = manager.getItemCount()
+                val visibleItemCount = manager.childCount
+                val totalItemCount = manager.itemCount
                 val firstVisibleItemPosition = manager.findFirstVisibleItemPosition()
 
                 if (!isLastPage) {

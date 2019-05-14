@@ -78,13 +78,13 @@ jobs:
            command: sudo chmod +x ./gradlew
         - run:
             name: Run unit tests
-            command: ./gradlew test -no-daemon -Pkotlin.incremental=false --max-workers=2
+            command: ./gradlew bottom_navigation_item_background_colors -no-daemon -Pkotlin.incremental=false --max-workers=2
         - store_artifacts:
             path: app/build/reports/
             destination: /reports/
         - store_test_results:
-            path: app/build/test-results/
-            destination: /test-results/
+            path: app/build/bottom_navigation_item_background_colors-results/
+            destination: /bottom_navigation_item_background_colors-results/
 
 workflows:
   version: 2

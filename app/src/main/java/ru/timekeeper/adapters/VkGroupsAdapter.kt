@@ -43,6 +43,8 @@ class VkGroupsAdapter(private val listItemClickListener: ListItemClickListener,
 
             if (group.isFavorite){
                 img_favorite.setImageResource(R.drawable.ic_star_filled)
+            }else{
+                //TODO
             }
 
             containerView.setOnClickListener {

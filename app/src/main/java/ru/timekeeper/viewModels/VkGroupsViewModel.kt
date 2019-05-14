@@ -4,44 +4,50 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.google.firebase.firestore.CollectionReference
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import ru.timekeeper.SharedPrefWrapper
 import ru.timekeeper.data.network.model.groupsRemote.Group
 import ru.timekeeper.data.repository.VkRepository
 import javax.inject.Inject
 
 class VkGroupsViewModel @Inject constructor(
-    private val repository: VkRepository,
-    private val sPref: SharedPrefWrapper,
-    private val idsCollection: CollectionReference
+        private val repository: VkRepository,
+        private val sPref: SharedPrefWrapper,
+        private val idsCollection: CollectionReference
 ) : ViewModel() {
+
+    private val compositeDisposable = CompositeDisposable()
 
     var groups: MutableLiveData<List<Group>> = MutableLiveData()
 
     var favoriteGroupIds = mutableListOf<String>()
 
+    var isLoading: MutableLiveData<Boolean> = MutableLiveData()
+
     private fun changeGroupsValue(userId: String) {
-        repository.getUsersGroups(userId = userId, token = sPref.getTokenFromPreferences())
-            .observeOn(AndroidSchedulers.mainThread())
-            .map { groups ->
-                groups.forEach { group ->
-                    if (checkIfFavoriteGroupIdsContains(group.id)) {
-                        group.isFavorite = true
+       val disposable =  repository.getUsersGroups(userId = userId, token = sPref.getTokenFromPreferences())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { groups ->
+                    groups.forEach { group ->
+                        if (checkIfFavoriteGroupIdsContains(group.id)) {
+                            group.isFavorite = true
+                        }
                     }
+                    groups
                 }
-                groups
-            }
-            .subscribe({
-                groups.value = it
-            }, {
-                it.printStackTrace()
-            })
+                .subscribe({
+                    groups.value = it
+                }, {
+                    it.printStackTrace()
+                })
+        compositeDisposable.add(disposable)
     }
 
     fun onStarClicked(groupId: Int) {
         val group = groups.value?.get(findGroupIndexWithRequiredId(groupId))
         group?.let {
             if (!it.isFavorite) {
-                it.id?.let { it1 -> addGroupIntoFavorites(it1) }
+                it.id?.let { groupId -> addGroupIntoFavorites(groupId) }
             } else {
                 deleteGroupFromFavorites(groupId)
             }
@@ -51,18 +57,56 @@ class VkGroupsViewModel @Inject constructor(
     fun getGroups(userId: String) {
         val ids = mutableListOf<String>()
         idsCollection.get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    for (document in task.result!!) {
-                        val data = document.data
-                        val id = data["id"]
-                        val idStr = id.toString()
-                        ids.add(idStr)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result!!) {
+                            val data = document.data
+                            val id = data["id"]
+                            val idStr = id.toString()
+                            ids.add(idStr)
+                        }
                     }
+                    favoriteGroupIds.addAll(ids)
+                    changeGroupsValue(userId)
                 }
-                favoriteGroupIds.addAll(ids)
-                changeGroupsValue(userId)
-            }
+    }
+
+    fun getFavoriteGroups(userId: String) {
+        val ids = mutableListOf<String>()
+        idsCollection.get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result!!) {
+                            val data = document.data
+                            val id = data["id"]
+                            val idStr = id.toString()
+                            ids.add(idStr)
+                        }
+                    }
+                    favoriteGroupIds.addAll(ids)
+                    changeFavoriteGrupsValue()
+                }
+    }
+
+    fun changeFavoriteGrupsValue() {
+        var groupsForQuery: StringBuilder = StringBuilder()
+        favoriteGroupIds.forEach {
+            groupsForQuery.append("$it,")
+        }
+
+        repository.getGroupsById(groupsForQuery.toString(), sPref.getTokenFromPreferences())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    it.forEach {
+                        it.isFavorite = true
+                    }
+                    it
+                }
+                .subscribe({
+                    groups.value = it
+                }, {
+                    it.printStackTrace()
+                })
     }
 
     private fun addGroupIntoFavorites(groupId: Int) {
@@ -98,5 +142,10 @@ class VkGroupsViewModel @Inject constructor(
                 return true
         }
         return false
+    }
+
+    override fun onCleared() {
+        compositeDisposable.clear()
+        super.onCleared()
     }
 }

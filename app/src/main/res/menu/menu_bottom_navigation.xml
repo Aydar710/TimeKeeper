@@ -3,25 +3,11 @@
 
     <item
         android:id="@+id/action_favorites"
-        android:icon="@drawable/ic_app"
-        android:title="Избранное"
-        />
+        android:icon="@drawable/ic_branching"
+        android:title="Избранное" />
 
     <item
         android:id="@+id/action_vk"
-        android:icon="@drawable/ic_app"
-        android:title="Вконтакте"
-        />
-
-    <item
-        android:id="@+id/action_instagram"
-        android:icon="@drawable/ic_app"
-        android:title="Инстаграм"
-        />
-
-    <item
-        android:id="@+id/action_facebook"
-        android:icon="@drawable/ic_app"
-        android:title="Фейсбук"
-        />
+        android:icon="@drawable/ic_vk_logo"
+        android:title="Вконтакте" />
 </menu>

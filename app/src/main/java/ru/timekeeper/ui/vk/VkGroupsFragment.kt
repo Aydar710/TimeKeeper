@@ -5,11 +5,10 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_user_groups.view.*
+import android.view.*
+import kotlinx.android.synthetic.main.fragment_vk_groups.view.*
 import ru.timekeeper.App
+import ru.timekeeper.R
 import ru.timekeeper.adapters.VkGroupsAdapter
 import ru.timekeeper.data.network.model.groupsRemote.Group
 import ru.timekeeper.viewModels.VkGroupsViewModel
@@ -22,8 +21,10 @@ class VkGroupsFragment : Fragment() {
     @Suppress("LateinitUsage")
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Suppress("LateinitUsage")
+    lateinit var viewModel: VkGroupsViewModel
 
-    private var viewModel: VkGroupsViewModel? = null
+    var userId: String = ""
 
     companion object {
         private val ARG_USER_ID = "user_id"
@@ -36,8 +37,13 @@ class VkGroupsFragment : Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(ru.timekeeper.R.layout.fragment_user_groups, container, false)
+        val view = inflater.inflate(ru.timekeeper.R.layout.fragment_vk_groups, container, false)
         App.component.inject(this)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[VkGroupsViewModel::class.java]
@@ -46,18 +52,42 @@ class VkGroupsFragment : Fragment() {
         adapter = VkGroupsAdapter(fragmentActivity) {
             onImgFavoriteClicked(it)
         }
-        val userId: String = arguments?.getInt(ARG_USER_ID).toString()
+        userId = arguments?.getInt(ARG_USER_ID).toString()
         recyclerView.adapter = adapter
-        viewModel?.groups?.observe(this, Observer<List<Group>> { groups ->
+        viewModel.groups.observe(this, Observer<List<Group>> { groups ->
             /*var list = mutableListOf<Group>()
             groups?.let {
                 list.addAll(it)
             }*/
             adapter.submitList(groups)
+            adapter.notifyDataSetChanged()
+        })
+        viewModel.isLoading.observe(this, Observer<Boolean> { isLoading ->
+            isLoading?.let {
+                if (it)
+                    view.progress_bar_groups.visibility = View.VISIBLE
+                else
+                    view.progress_bar_groups.visibility = View.GONE
+            }
+
         })
 
-        viewModel?.getGroups(userId)
+        viewModel.getGroups(userId)
         return view
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_toolbar, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.action_filter -> {
+                viewModel?.getFavoriteGroups(userId)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun onImgFavoriteClicked(groupId: Int) {

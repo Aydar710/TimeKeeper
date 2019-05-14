@@ -12,11 +12,13 @@ import kotlinx.android.synthetic.main.card_vk_group_wall.*
 import ru.timekeeper.K_LETTER
 import ru.timekeeper.M_LETTER
 import ru.timekeeper.data.network.model.groupWallRemote.Item
+import java.text.SimpleDateFormat
+import java.util.*
 
 class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCallback()) {
 
-    var groupPhotoSource : String? = null
-    var groupName : String? = null
+    var groupPhotoSource: String? = null
+    var groupName: String? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): PostHolder {
         val view = LayoutInflater.from(parent.context).inflate(ru.timekeeper.R.layout.card_vk_group_wall, parent, false)
@@ -31,7 +33,13 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
 
         fun bind(post: Item) {
             txt_vk_group_name.text = post.groupName
-            txt_vk_post_date.text = post.date.toString()
+
+            val simpleDateFormat = SimpleDateFormat("d MMMM 'в' HH:mm", Locale.forLanguageTag("RU"))
+            var date = ""
+            post.date?.let {
+                date = simpleDateFormat.format(Date().time - it)
+            }
+            txt_vk_post_date.text = date
             if (post.text?.length != 0) {
                 txt_vk_post_text.visibility = View.VISIBLE
                 txt_vk_post_text.text = post.text
@@ -46,34 +54,35 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
             val postImageUrl = getImageSize(post)?.let { post.attachments?.get(0)?.photo?.sizes?.get(it)?.url }
             postImageUrl?.let {
                 Picasso.get()
-                        .load(it)
-                        .into(img_vk_post_photo, object : Callback {
+                    .load(it)
+                    .into(img_vk_post_photo, object : Callback {
 
-                            override fun onSuccess() {
-                                img_vk_post_photo.visibility = View.VISIBLE
-                            }
+                        override fun onSuccess() {
+                            img_vk_post_photo.visibility = View.VISIBLE
+                        }
 
-                            override fun onError(e: Exception?) {
-                                img_vk_post_photo.visibility = View.GONE
-                            }
-                        })
+                        override fun onError(e: Exception?) {
+                            img_vk_post_photo.visibility = View.GONE
+                        }
+                    })
             }
 
+            Picasso.get().invalidate(post.groupPhoto)
             Picasso.get()
-                    .load(post.groupPhoto)
-                    .into(img_vk_group_photo)
+                .load(post.groupPhoto)
+                .into(img_vk_group_photo)
         }
     }
 
     fun getImageSize(post: Item): Int? =
-            post.attachments?.get(0)?.photo?.sizes?.size?.minus(1)
+        post.attachments?.get(0)?.photo?.sizes?.size?.minus(1)
 
     fun ellipsize(text: CharSequence): CharSequence =
-            when (text.length) {
-                in 1..3 -> text
-                4 -> text[0] + K_LETTER
-                5 -> text.subSequence(0, 1).toString() + K_LETTER
-                6 -> text.subSequence(0, 2).toString() + K_LETTER
-                else -> text[0] + M_LETTER
-            }
+        when (text.length) {
+            in 1..3 -> text
+            4 -> text[0] + K_LETTER
+            5 -> text.subSequence(0, 1).toString() + K_LETTER
+            6 -> text.subSequence(0, 2).toString() + K_LETTER
+            else -> text[0] + M_LETTER
+        }
 }

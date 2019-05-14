@@ -11,7 +11,7 @@ detekt {
     version = "1.0.0-RC12"
     input = files("${project.rootDir}/${project.getName()}/src/main/java")
     config = files("${project.rootDir}/detekt/detekt-config.yml")
-    filters = ".*test.*,.*/resources/.*,.*/tmp/.*"
+    filters = ".*bottom_navigation_item_background_colors.*,.*/resources/.*,.*/tmp/.*"
     reports {
         xml {
             enabled = true
@@ -32,7 +32,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.bottom_navigation_item_background_colors.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {

@@ -21,10 +21,9 @@ class CombinedFeedViewModel @Inject constructor(
 
     fun getCombinedFeed() {
         favoriteIds.add("119247232")
-        favoriteIds.add("35488145")
-        favoriteIds.add("41696672")
-        favoriteIds.add("57846937")
         favoriteIds.add("22822305")
+        favoriteIds.add("57846937")
+        favoriteIds.add("145998072")
         vkRepository.getCombinedFeed(favoriteIds, token = sPref.getTokenFromPreferences())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
