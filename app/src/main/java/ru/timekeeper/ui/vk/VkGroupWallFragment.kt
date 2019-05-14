@@ -5,12 +5,16 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_vk_group_wall.view.*
 import ru.timekeeper.App
+import ru.timekeeper.PAGINATION_SIZE
 import ru.timekeeper.R
+import ru.timekeeper.TOTAL_ITEM_COUNT_MORE_THAN
 import ru.timekeeper.adapters.VkPostAdapter
 import ru.timekeeper.data.network.model.groupWallRemote.Item
 import ru.timekeeper.data.network.model.groupsRemote.Group
@@ -54,11 +58,37 @@ class VkGroupWallFragment : Fragment() {
         val groupId: String = "-" + arguments?.getInt(ARG_GROUP_ID).toString()
         recyclerView.adapter = adapter
 
+        val manager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = manager
+
         viewModel?.posts?.observe(this, Observer<List<Item>> { posts ->
             adapter.submitList(posts)
         })
 
         viewModel?.loadGroupWall(groupId)
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            private var currentPage: Int = 0
+            private var isLastPage = false
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val visibleItemCount = manager.getChildCount()
+                val totalItemCount = manager.getItemCount()
+                val firstVisibleItemPosition = manager.findFirstVisibleItemPosition()
+
+                if (!isLastPage) {
+                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
+                        && firstVisibleItemPosition >= 0
+                        && totalItemCount >= TOTAL_ITEM_COUNT_MORE_THAN
+                    ) {
+
+                        viewModel?.loadNextPosts(groupId, ++currentPage, PAGINATION_SIZE)
+
+                    }
+                }
+            }
+        })
         return view
     }
 }

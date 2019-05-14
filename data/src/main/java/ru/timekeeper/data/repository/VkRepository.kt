@@ -21,7 +21,10 @@ class VkRepository(
             }
 
 
-    fun getGroupPosts(groupId: String, count: String = "20", token: String): Single<List<Item>> {
+    fun getGroupPosts(
+        groupId: String, count: String = "10", token: String,
+        currentPage: Int = 0, pagSize: Int = 10
+    ): Single<List<Item>> {
         var group: Group? = null
         getGroupById(groupId, token)
             .subscribe({
@@ -29,7 +32,7 @@ class VkRepository(
             }, {
                 it.printStackTrace()
             })
-        return vkService.getGroupPosts(groupId, count, token)
+        return vkService.getGroupPosts(groupId, count, access_token = token, offset = "${currentPage * pagSize}")
             .subscribeOn(Schedulers.io())
             .map {
                 it.response
