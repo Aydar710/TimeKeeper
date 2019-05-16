@@ -7,9 +7,9 @@ data class Reposts (
 
     @SerializedName("count")
     @Expose
-    val count: Int? = null,
+    var count: Int? = null,
     @SerializedName("user_reposted")
     @Expose
-    val userReposted: Int? = null
+    var userReposted: Int? = null
 
 )
