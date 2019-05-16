@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import kotlinx.android.synthetic.main.fragment_vk_group_wall.view.*
 import ru.timekeeper.App
 import ru.timekeeper.PAGINATION_SIZE
@@ -45,6 +43,15 @@ class VkGroupWallFragment : Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_toolbar, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         App.component.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[VkGroupWallViewModel::class.java]
@@ -65,6 +72,15 @@ class VkGroupWallFragment : Fragment() {
             adapter.submitList(posts)
         })
 
+        viewModel?.isLoading?.observe(this, Observer<Boolean> { isLoading ->
+            isLoading?.let {
+                if (it)
+                    view.progress_bar_wall.visibility = View.VISIBLE
+                else
+                    view.progress_bar_wall.visibility = View.GONE
+            }
+        })
+
         viewModel?.loadGroupWall(groupId)
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -79,8 +95,8 @@ class VkGroupWallFragment : Fragment() {
 
                 if (!isLastPage) {
                     if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
-                        && firstVisibleItemPosition >= 0
-                        && totalItemCount >= TOTAL_ITEM_COUNT_MORE_THAN
+                            && firstVisibleItemPosition >= 0
+                            && totalItemCount >= TOTAL_ITEM_COUNT_MORE_THAN
                     ) {
 
                         viewModel?.loadNextPosts(groupId, ++currentPage, PAGINATION_SIZE)

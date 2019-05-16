@@ -5,9 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import kotlinx.android.synthetic.main.fragment_vk_group_wall.view.*
 import ru.timekeeper.App
 import ru.timekeeper.R
@@ -23,6 +21,16 @@ class CombinedFeedFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private var viewModel: CombinedFeedViewModel? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_toolbar, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_vk_group_wall, container, false)
@@ -41,6 +49,14 @@ class CombinedFeedFragment : Fragment() {
             adapter.submitList(posts)
         })
 
+        viewModel?.isLoading?.observe(this, Observer<Boolean> { isLoading ->
+            isLoading?.let {
+                if (it)
+                    view.progress_bar_wall.visibility = View.VISIBLE
+                else
+                    view.progress_bar_wall.visibility = View.GONE
+            }
+        })
         viewModel?.getCombinedFeed()
         return view
     }

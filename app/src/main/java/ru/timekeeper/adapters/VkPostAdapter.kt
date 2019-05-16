@@ -43,6 +43,8 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
             if (post.text?.length != 0) {
                 txt_vk_post_text.visibility = View.VISIBLE
                 txt_vk_post_text.text = post.text
+            }else{
+                txt_vk_post_text.visibility = View.GONE
             }
 
             txt_vk_post_likes.text = ellipsize(post.likes?.count.toString())
@@ -52,6 +54,7 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
 
 
             val postImageUrl = getImageSize(post)?.let { post.attachments?.get(0)?.photo?.sizes?.get(it)?.url }
+            Picasso.get().invalidate(postImageUrl)
             postImageUrl?.let {
                 Picasso.get()
                     .load(it)

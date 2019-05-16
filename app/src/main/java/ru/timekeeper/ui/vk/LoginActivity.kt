@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
-
     @Suppress("LateinitUsage")
     @Inject
     lateinit var sharedPrefWrapper: SharedPrefWrapper
@@ -32,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
             VK.login(this, arrayListOf(VKScope.WALL, VKScope.GROUPS))
         }
 
-        startContainerActivity()
+            //startContainerActivity()
 
     }
 

@@ -36,10 +36,7 @@ class VkRepository(
         return vkService.getGroupPosts(groupId, count, access_token = token, offset = "${currentPage * pagSize}")
                 .subscribeOn(Schedulers.io())
                 .map {
-                    it.response
-                }
-                .map {
-                    it?.items
+                    it.response?.items
                 }
                 .map { items ->
                     items?.forEach {
@@ -71,7 +68,7 @@ class VkRepository(
         var mergingObservables: MutableList<Observable<List<Item>>> = mutableListOf()
         for (i in 0 until groupIds.size) {
             mergingObservables.add(
-                    getGroupPosts(groupIds[i], token = token, count = "3").toObservable()
+                    getGroupPosts(groupIds[i], token = token, count = "1").toObservable()
             )
         }
         return Observable.merge(mergingObservables)

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "316475494613",
+    "firebase_url": "https://timekeeper-f4512.firebaseio.com",
+    "project_id": "timekeeper-f4512",
+    "storage_bucket": "timekeeper-f4512.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316475494613:android:23aa9c529ffec718",
+        "android_client_info": {
+          "package_name": "ru.timekeeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316475494613-tl0ecr2j5ickceo5ms6vstqd9e3aebn0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.timekeeper",
+            "certificate_hash": "8cead1dc7b8acbe2fdf26f7760aff431e33095fd"
+          }
+        },
+        {
+          "client_id": "316475494613-e4rh7o2nj8head30ii5ah7sf142soc2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_UWbtfO5Wzbu2nQSvPt_ZT-F_RTLyOV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316475494613-e4rh7o2nj8head30ii5ah7sf142soc2r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
