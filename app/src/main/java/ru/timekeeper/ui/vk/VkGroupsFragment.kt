@@ -65,7 +65,6 @@ class VkGroupsFragment : Fragment() {
                 else
                     view.progress_bar_groups.visibility = View.GONE
             }
-
         })
 
         viewModel.getGroups(userId)

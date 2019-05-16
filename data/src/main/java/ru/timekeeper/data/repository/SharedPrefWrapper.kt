@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import ru.timekeeper.data.SHARED_PREF_FILENAME
 import ru.timekeeper.data.SHARED_PREF_TOKEN_KEY
+import ru.timekeeper.data.SHARED_PREF_TOKEN_VALIDATION_KEY
 import ru.timekeeper.data.SHARED_PREF_USER_ID_KEY
 
 class SharedPrefWrapper(context: Context) {
@@ -32,4 +33,12 @@ class SharedPrefWrapper(context: Context) {
     fun getUserId(): Int =
             sPref.getInt(SHARED_PREF_USER_ID_KEY, -1)
 
+    fun setTokenValidation(isTokenValid : Boolean) =
+            sPref.edit().run {
+                putBoolean(SHARED_PREF_TOKEN_VALIDATION_KEY, isTokenValid)
+                apply()
+            }
+
+    fun isTokenValid() : Boolean =
+            sPref.getBoolean(SHARED_PREF_TOKEN_VALIDATION_KEY, false)
 }

@@ -2,11 +2,12 @@ package ru.timekeeper.di.component
 
 import android.content.Context
 import dagger.Component
+import ru.timekeeper.App
 import ru.timekeeper.data.di.module.NetModule
 import ru.timekeeper.data.di.module.RepositoryModule
 import ru.timekeeper.data.di.module.ServiceModule
-import ru.timekeeper.di.module.AppModule
 import ru.timekeeper.data.di.module.SharedPrefModule
+import ru.timekeeper.di.module.AppModule
 import ru.timekeeper.di.module.ViewModelModule
 import ru.timekeeper.ui.vk.*
 import javax.inject.Singleton
@@ -31,4 +32,5 @@ interface AppComponent {
     fun inject(loginActivity: LoginActivity)
     fun inject(mainActivity: MainActivity)
     fun inject(combinedFeedFragment: CombinedFeedFragment)
+    fun inject(app : App)
 }
