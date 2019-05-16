@@ -129,12 +129,20 @@ class VkGroupsViewModel @Inject constructor(
 
     private fun deleteGroupFromFavorites(groupId: Int) {
         idsCollection.document("$groupId").delete()
+        markGroupAsNotFavorite(groupId)
     }
 
     private fun markGroupAsFavorite(groupId: Int) {
-        var groupList: MutableList<Group> = groups.value as MutableList<Group>
+        val groupList: MutableList<Group> = groups.value as MutableList<Group>
         val index = findGroupIndexWithRequiredId(groupId)
         groupList[index].isFavorite = true
+        groups.value = groupList
+    }
+
+    private fun markGroupAsNotFavorite(groupId : Int){
+        val groupList: MutableList<Group> = groups.value as MutableList<Group>
+        val index = findGroupIndexWithRequiredId(groupId)
+        groupList[index].isFavorite = false
         groups.value = groupList
     }
 

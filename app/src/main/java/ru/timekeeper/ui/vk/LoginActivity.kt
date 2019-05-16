@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
             VK.login(this, arrayListOf(VKScope.WALL, VKScope.GROUPS))
         }
 
-            //startContainerActivity()
+        startContainerActivity()
 
     }
 
