@@ -39,7 +39,8 @@ class CombinedFeedFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)[CombinedFeedViewModel::class.java]
 
         val recyclerView = view.recycler_vk_group_wall
-        val adapter = VkPostAdapter()
+        val adapter = VkPostAdapter(){postId, postType, groupId ->
+        }
         adapter.groupName = ""
         adapter.groupPhotoSource = ""
 

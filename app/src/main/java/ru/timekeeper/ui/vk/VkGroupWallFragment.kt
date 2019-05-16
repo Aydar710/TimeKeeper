@@ -47,6 +47,7 @@ class VkGroupWallFragment : Fragment() {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
     }
+
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_toolbar, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -58,7 +59,9 @@ class VkGroupWallFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_vk_group_wall, container, false)
         val recyclerView = view.recycler_vk_group_wall
-        val adapter = VkPostAdapter()
+        val adapter = VkPostAdapter { postId, postType, groupId ->
+            viewModel?.addLike(postId, postType, groupId)
+        }
         adapter.groupName = arguments?.getString(ARG_GROUP_NAME) ?: ""
         adapter.groupPhotoSource = arguments?.getString(ARG_GROUP_PHOTO_SRC) ?: ""
 
@@ -95,8 +98,8 @@ class VkGroupWallFragment : Fragment() {
 
                 if (!isLastPage) {
                     if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
-                            && firstVisibleItemPosition >= 0
-                            && totalItemCount >= TOTAL_ITEM_COUNT_MORE_THAN
+                        && firstVisibleItemPosition >= 0
+                        && totalItemCount >= TOTAL_ITEM_COUNT_MORE_THAN
                     ) {
 
                         viewModel?.loadNextPosts(groupId, ++currentPage, PAGINATION_SIZE)

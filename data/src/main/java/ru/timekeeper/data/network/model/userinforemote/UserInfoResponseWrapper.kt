@@ -7,6 +7,6 @@ data class UserInfoResponseWrapper(
 
         @SerializedName("response")
         @Expose
-        val response: List<Response>? = null
+        val response: List<UserInfoResponse>? = null
 
 )

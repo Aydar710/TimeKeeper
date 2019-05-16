@@ -51,5 +51,6 @@ data class Item(
     @Expose
     val isFavorite: Boolean? = null,
     var groupName : String? = null,
-    var groupPhoto : String? = null
+    var groupPhoto : String? = null,
+    var groupId : String? = null
 )

@@ -6,6 +6,7 @@ import retrofit2.http.Query
 import ru.timekeeper.data.network.model.groupByIdRemote.GroupByIdResponseWrapper
 import ru.timekeeper.data.network.model.groupWallRemote.GroupWallResponseWrapper
 import ru.timekeeper.data.network.model.groupsRemote.GroupsResponseWrapper
+import ru.timekeeper.data.network.model.likesremote.LikeResponseWrapper
 import ru.timekeeper.data.network.model.tokenstate.TokenStateResponseWrapper
 
 interface VkService {
@@ -47,8 +48,12 @@ interface VkService {
         @Query("access_token") accessToken: String
     ): Single<TokenStateResponseWrapper>
 
-    /*@GET("users.get")
-    fun getUserInfo(
-            @Query("access_token") token: String
-    ): Single<UserInfoResponseWrapper>*/
+    @GET("likes.add")
+    fun addLike(
+        @Query("type") type: String,
+        @Query("item_id") itemId: String,
+        @Query("access_token") accessToken: String,
+        @Query("owner_id") groupId: String
+    ): Single<LikeResponseWrapper>
+
 }

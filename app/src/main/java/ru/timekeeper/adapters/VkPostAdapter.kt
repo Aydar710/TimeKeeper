@@ -11,11 +11,14 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.card_vk_group_wall.*
 import ru.timekeeper.K_LETTER
 import ru.timekeeper.M_LETTER
+import ru.timekeeper.R
 import ru.timekeeper.data.network.model.groupWallRemote.Item
 import java.text.SimpleDateFormat
 import java.util.*
 
-class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCallback()) {
+class VkPostAdapter(
+    private val onImgLikeClickListener: (Int, String, String) -> Unit
+) : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCallback()) {
 
     var groupPhotoSource: String? = null
     var groupName: String? = null
@@ -43,7 +46,7 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
             if (post.text?.length != 0) {
                 txt_vk_post_text.visibility = View.VISIBLE
                 txt_vk_post_text.text = post.text
-            }else{
+            } else {
                 txt_vk_post_text.visibility = View.GONE
             }
 
@@ -52,6 +55,18 @@ class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCa
             txt_vk_post_repost.text = ellipsize(post.reposts?.count.toString())
             txt_vk_post_views.text = ellipsize(post.views?.count.toString())
 
+            if (post.likes?.userLikes == 1)
+                img_vk_post_like.setImageResource(R.drawable.ic_like_filled)
+            else
+                img_vk_post_like.setImageResource(R.drawable.ic_like_border)
+
+            img_vk_post_like.setOnClickListener {
+                post.id?.let { postId ->
+                    post.postType?.let { postType ->
+                        post.groupId?.let { groupId -> onImgLikeClickListener(postId, postType, "-$groupId") }
+                    }
+                }
+            }
 
             val postImageUrl = getImageSize(post)?.let { post.attachments?.get(0)?.photo?.sizes?.get(it)?.url }
             Picasso.get().invalidate(postImageUrl)

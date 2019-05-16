@@ -4,8 +4,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import ru.timekeeper.data.repository.SharedPrefWrapper
 import ru.timekeeper.data.network.model.groupWallRemote.Item
+import ru.timekeeper.data.repository.SharedPrefWrapper
 import ru.timekeeper.data.repository.VkRepository
 import javax.inject.Inject
 
@@ -55,6 +55,16 @@ class VkGroupWallViewModel @Inject constructor(
                 })
 
         compositeDisposable.add(disposable)
+    }
+
+    fun addLike(postId : Int, postType : String, groupId: String){
+        repository.addLike(postType, postId.toString(), sPref.getToken(), groupId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                print(it)
+            },{
+                it.printStackTrace()
+            })
     }
 
     override fun onCleared() {

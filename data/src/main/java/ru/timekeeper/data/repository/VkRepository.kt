@@ -6,7 +6,6 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import ru.timekeeper.data.network.model.groupWallRemote.Item
 import ru.timekeeper.data.network.model.groupsRemote.Group
-import ru.timekeeper.data.network.model.tokenstate.Response
 import ru.timekeeper.data.service.VkService
 
 class VkRepository(
@@ -25,8 +24,7 @@ class VkRepository(
     fun getGroupPosts(
         groupId: String, count: String = "10", token: String,
         currentPage: Int = 0, pagSize: Int = 10
-    )
-            : Single<List<Item>> {
+    ): Single<List<Item>> {
         var group: Group? = null
         getGroupById(groupId, token)
             .subscribe({
@@ -45,6 +43,7 @@ class VkRepository(
                     listItems.forEach {
                         it.groupName = group?.name
                         it.groupPhoto = group?.photo100
+                        it.groupId = group?.id?.toString()
                     }
                 }
                 items
@@ -78,17 +77,10 @@ class VkRepository(
         return Observable.merge(mergedObservables)
     }
 
-    fun checkIfTokenIsValid(token: String, ip: String, accessToken : String): Single<Response> =
-        vkService.checkIfTokenIsValid(token, ip, accessToken)
+    fun addLike(type: String, itemId: String, token: String, groupId : String) =
+        vkService.addLike(type, itemId, token, groupId)
             .subscribeOn(Schedulers.io())
             .map {
-                it.response
+                it.response?.likes
             }
-
-    /*fun getUserInfo(token: String) =
-            vkService.getUserInfo(token)
-                    .subscribeOn(Schedulers.io())
-                    .map {
-                        it.response?.get(0)
-                    }*/
 }

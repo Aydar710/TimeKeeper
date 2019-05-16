@@ -1,12 +1,12 @@
-package ru.timekeeper.data.network.model.tokenstate
+package ru.timekeeper.data.network.model.likesremote
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class TokenStateResponseWrapper (
+data class LikeResponseWrapper (
 
     @SerializedName("response")
     @Expose
-    var response: TokenStateResponse? = null
+    var response: LikeResponse? = null
 
 )

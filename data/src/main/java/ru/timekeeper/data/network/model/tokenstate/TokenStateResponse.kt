@@ -3,7 +3,7 @@ package ru.timekeeper.data.network.model.tokenstate
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Response (
+data class TokenStateResponse (
 
     @SerializedName("success")
     @Expose
