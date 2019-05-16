@@ -55,10 +55,6 @@ class VkGroupsFragment : Fragment() {
         userId = arguments?.getInt(ARG_USER_ID).toString()
         recyclerView.adapter = adapter
         viewModel.groups.observe(this, Observer<List<Group>> { groups ->
-            /*var list = mutableListOf<Group>()
-            groups?.let {
-                list.addAll(it)
-            }*/
             adapter.submitList(groups)
             adapter.notifyDataSetChanged()
         })

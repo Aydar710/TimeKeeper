@@ -1,8 +1,11 @@
-package ru.timekeeper
+package ru.timekeeper.data.repository
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
+import ru.timekeeper.data.SHARED_PREF_FILENAME
+import ru.timekeeper.data.SHARED_PREF_TOKEN_KEY
+import ru.timekeeper.data.SHARED_PREF_USER_ID_KEY
 
 class SharedPrefWrapper(context: Context) {
 

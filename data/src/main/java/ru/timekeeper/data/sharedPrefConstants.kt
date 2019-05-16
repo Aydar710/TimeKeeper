@@ -1,0 +1,7 @@
+package ru.timekeeper.data
+
+const val SHARED_PREF_FILENAME = "vkData"
+
+const val SHARED_PREF_TOKEN_KEY = "tokenKey"
+
+const val SHARED_PREF_USER_ID_KEY = "userIdKey"

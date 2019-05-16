@@ -11,7 +11,7 @@ import com.vk.api.sdk.auth.VKScope
 import kotlinx.android.synthetic.main.activity_login.*
 import ru.timekeeper.App
 import ru.timekeeper.R
-import ru.timekeeper.SharedPrefWrapper
+import ru.timekeeper.data.repository.SharedPrefWrapper
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
             VK.login(this, arrayListOf(VKScope.WALL, VKScope.GROUPS))
         }
 
-        //startContainerActivity()
+        startContainerActivity()
 
     }
 

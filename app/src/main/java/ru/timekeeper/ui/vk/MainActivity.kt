@@ -5,9 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.timekeeper.App
 import ru.timekeeper.R
-import ru.timekeeper.SharedPrefWrapper
 import ru.timekeeper.adapters.VkGroupsAdapter
 import ru.timekeeper.data.network.model.groupsRemote.Group
+import ru.timekeeper.data.repository.SharedPrefWrapper
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickListener {

@@ -5,15 +5,15 @@ import android.arch.lifecycle.ViewModel
 import com.google.firebase.firestore.CollectionReference
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import ru.timekeeper.SharedPrefWrapper
 import ru.timekeeper.data.network.model.groupsRemote.Group
+import ru.timekeeper.data.repository.SharedPrefWrapper
 import ru.timekeeper.data.repository.VkRepository
 import javax.inject.Inject
 
 class VkGroupsViewModel @Inject constructor(
-    private val repository: VkRepository,
-    private val sPref: SharedPrefWrapper,
-    private val idsCollection: CollectionReference
+        private val repository: VkRepository,
+        private val sPref: SharedPrefWrapper,
+        private val idsCollection: CollectionReference
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()

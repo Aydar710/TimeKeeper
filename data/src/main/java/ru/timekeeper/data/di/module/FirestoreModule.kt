@@ -4,16 +4,16 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
-import ru.timekeeper.data.FIREBASE_COLLECTION_NAME_IDS
+import ru.timekeeper.data.repository.SharedPrefWrapper
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [SharedPrefModule::class])
 class FirestoreModule {
 
     @Singleton
     @Provides
-    fun provideCollectionReference(): CollectionReference {
+    fun provideCollectionReference(sPref : SharedPrefWrapper): CollectionReference {
         val db = FirebaseFirestore.getInstance()
-        return db.collection(FIREBASE_COLLECTION_NAME_IDS)
+        return db.collection(sPref.getUserId().toString())
     }
 }

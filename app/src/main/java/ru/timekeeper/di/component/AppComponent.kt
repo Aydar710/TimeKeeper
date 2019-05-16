@@ -6,7 +6,7 @@ import ru.timekeeper.data.di.module.NetModule
 import ru.timekeeper.data.di.module.RepositoryModule
 import ru.timekeeper.data.di.module.ServiceModule
 import ru.timekeeper.di.module.AppModule
-import ru.timekeeper.di.module.SharedPrefModule
+import ru.timekeeper.data.di.module.SharedPrefModule
 import ru.timekeeper.di.module.ViewModelModule
 import ru.timekeeper.ui.vk.*
 import javax.inject.Singleton
