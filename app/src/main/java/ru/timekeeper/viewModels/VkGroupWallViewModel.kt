@@ -2,6 +2,7 @@ package ru.timekeeper.viewModels
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import ru.timekeeper.data.network.model.groupWallRemote.Item
@@ -57,14 +58,31 @@ class VkGroupWallViewModel @Inject constructor(
         compositeDisposable.add(disposable)
     }
 
-    fun addLike(postId : Int, postType : String, groupId: String){
+    fun addLike(postId: Int, postType: String, groupId: String) {
         repository.addLike(postType, postId.toString(), sPref.getToken(), groupId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                print(it)
-            },{
-                it.printStackTrace()
-            })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    print(it)
+                }, {
+                    it.printStackTrace()
+                })
+
+        val postList: MutableList<Item> = posts.value as MutableList<Item>
+        postList.forEach {
+            if (it.id == postId)
+                it.likes?.userLikes = 1
+        }
+        posts.postValue(postList)
+    }
+
+    fun repost(groupId: Int, postId: Int) {
+        repository.repost("-$groupId", "$postId", sPref.getToken())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Log.i("Token", "$it")
+                },{
+                    it.printStackTrace()
+                })
     }
 
     override fun onCleared() {

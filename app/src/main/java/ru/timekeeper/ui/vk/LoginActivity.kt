@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 import ru.timekeeper.App
 import ru.timekeeper.R
 import ru.timekeeper.data.repository.SharedPrefWrapper
-import ru.timekeeper.data.repository.VkRepository
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
@@ -20,9 +19,6 @@ class LoginActivity : AppCompatActivity() {
     @Suppress("LateinitUsage")
     @Inject
     lateinit var sPref: SharedPrefWrapper
-
-    @Inject
-    lateinit var vkRepository: VkRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -62,6 +62,10 @@ class VkGroupWallFragment : Fragment() {
         val adapter = VkPostAdapter { postId, postType, groupId ->
             viewModel?.addLike(postId, postType, groupId)
         }
+
+        adapter.onImgRepostClickListener = {groupId, postId ->
+            viewModel?.repost(groupId, postId)
+        }
         adapter.groupName = arguments?.getString(ARG_GROUP_NAME) ?: ""
         adapter.groupPhotoSource = arguments?.getString(ARG_GROUP_PHOTO_SRC) ?: ""
 
@@ -73,6 +77,7 @@ class VkGroupWallFragment : Fragment() {
 
         viewModel?.posts?.observe(this, Observer<List<Item>> { posts ->
             adapter.submitList(posts)
+            adapter.notifyDataSetChanged()
         })
 
         viewModel?.isLoading?.observe(this, Observer<Boolean> { isLoading ->

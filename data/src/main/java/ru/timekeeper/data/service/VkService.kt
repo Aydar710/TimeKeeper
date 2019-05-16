@@ -7,6 +7,7 @@ import ru.timekeeper.data.network.model.groupByIdRemote.GroupByIdResponseWrapper
 import ru.timekeeper.data.network.model.groupWallRemote.GroupWallResponseWrapper
 import ru.timekeeper.data.network.model.groupsRemote.GroupsResponseWrapper
 import ru.timekeeper.data.network.model.likesremote.LikeResponseWrapper
+import ru.timekeeper.data.network.model.repostRemote.RepostResponseWrapper
 import ru.timekeeper.data.network.model.tokenstate.TokenStateResponseWrapper
 
 interface VkService {
@@ -55,5 +56,12 @@ interface VkService {
         @Query("access_token") accessToken: String,
         @Query("owner_id") groupId: String
     ): Single<LikeResponseWrapper>
+
+    @GET("wall.repost")
+    fun repost(
+            @Query("object") obj : String,
+            @Query("access_token") accessToken: String,
+            @Query("message") message : String = "testing vk api"
+    ):Single<RepostResponseWrapper>
 
 }

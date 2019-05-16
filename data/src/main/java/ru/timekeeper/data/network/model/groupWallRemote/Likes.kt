@@ -10,7 +10,7 @@ data class Likes (
     val count: Int? = null,
     @SerializedName("user_likes")
     @Expose
-    val userLikes: Int? = null,
+    var userLikes: Int? = null,
     @SerializedName("can_like")
     @Expose
     val canLike: Int? = null,
