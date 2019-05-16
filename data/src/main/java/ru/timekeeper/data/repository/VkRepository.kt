@@ -73,4 +73,11 @@ class VkRepository(
         }
         return Observable.merge(mergingObservables)
     }
+
+    /*fun getUserInfo(token: String) =
+            vkService.getUserInfo(token)
+                    .subscribeOn(Schedulers.io())
+                    .map {
+                        it.response?.get(0)
+                    }*/
 }

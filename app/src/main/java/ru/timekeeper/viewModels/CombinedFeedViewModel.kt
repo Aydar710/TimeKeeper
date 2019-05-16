@@ -28,7 +28,7 @@ class CombinedFeedViewModel @Inject constructor(
         favoriteIds.add("41696672")
         favoriteIds.add("119247232")
         favoriteIds.add("172142411")
-        val disposable = vkRepository.getCombinedFeed(favoriteIds, token = sPref.getTokenFromPreferences())
+        val disposable = vkRepository.getCombinedFeed(favoriteIds, token = sPref.getToken())
                 .doOnSubscribe {
                     isLoading.postValue(true)
                 }

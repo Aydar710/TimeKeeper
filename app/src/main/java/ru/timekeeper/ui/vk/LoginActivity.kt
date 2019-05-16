@@ -24,14 +24,13 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-
         App.component.inject(this)
 
         img_login_vk.setOnClickListener {
             VK.login(this, arrayListOf(VKScope.WALL, VKScope.GROUPS))
         }
 
-        startContainerActivity()
+        //startContainerActivity()
 
     }
 
@@ -39,7 +38,8 @@ class LoginActivity : AppCompatActivity() {
         val callback = object : VKAuthCallback {
             override fun onLogin(token: VKAccessToken) {
                 // User passed authorization
-                sharedPrefWrapper.saveTokenToPreferences(token.accessToken)
+                sharedPrefWrapper.saveToken(token.accessToken)
+                sharedPrefWrapper.saveUserId(token.userId)
                 Log.i("Token", token.accessToken)
                 startContainerActivity()
             }

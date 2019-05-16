@@ -1,8 +1,10 @@
 package ru.timekeeper
 
-const val SHARED_PREF_FILENAME = "vkAccessToken"
+const val SHARED_PREF_FILENAME = "vkData"
 
 const val SHARED_PREF_TOKEN_KEY = "tokenKey"
+
+const val SHARED_PREF_USER_ID_KEY = "userIdKey"
 
 const val K_LETTER = "K"
 const val M_LETTER = "M"

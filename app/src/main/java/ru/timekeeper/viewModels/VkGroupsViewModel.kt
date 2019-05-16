@@ -25,7 +25,7 @@ class VkGroupsViewModel @Inject constructor(
     var isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     private fun changeGroupsValue(userId: String) {
-        val disposable = repository.getUsersGroups(userId = userId, token = sPref.getTokenFromPreferences())
+        val disposable = repository.getUsersGroups(userId = userId, token = sPref.getToken())
             .doOnSubscribe {
                 isLoading.postValue(true)
             }
@@ -93,17 +93,17 @@ class VkGroupsViewModel @Inject constructor(
                     }
                 }
                 favoriteGroupIds.addAll(ids)
-                changeFavoriteGrupsValue()
+                changeFavoriteGroupsValue()
             }
     }
 
-    private fun changeFavoriteGrupsValue() {
+    private fun changeFavoriteGroupsValue() {
         val groupsForQuery: StringBuilder = StringBuilder()
         favoriteGroupIds.forEach {
             groupsForQuery.append("$it,")
         }
 
-        val disposable = repository.getGroupsById(groupsForQuery.toString(), sPref.getTokenFromPreferences())
+        val disposable = repository.getGroupsById(groupsForQuery.toString(), sPref.getToken())
             .observeOn(AndroidSchedulers.mainThread())
             .map {
                 it.forEach {

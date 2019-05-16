@@ -84,13 +84,13 @@ class VkGroupsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_filter -> {
-                viewModel?.getFavoriteGroups(userId)
+                viewModel.getFavoriteGroups(userId)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun onImgFavoriteClicked(groupId: Int) {
-        viewModel?.onStarClicked(groupId)
+        viewModel.onStarClicked(groupId)
     }
 }

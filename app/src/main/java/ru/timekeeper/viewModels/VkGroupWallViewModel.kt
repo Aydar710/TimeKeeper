@@ -21,7 +21,7 @@ class VkGroupWallViewModel @Inject constructor(
     private val compositeDisposable = CompositeDisposable()
 
     fun loadGroupWall(groupId: String) {
-        val disposable = repository.getGroupPosts(groupId = groupId, token = sPref.getTokenFromPreferences())
+        val disposable = repository.getGroupPosts(groupId = groupId, token = sPref.getToken())
                 .doOnSubscribe {
                     isLoading.postValue(true)
                 }
@@ -42,7 +42,7 @@ class VkGroupWallViewModel @Inject constructor(
     }
 
     fun loadNextPosts(groupId: String, currentPage: Int, pagSize: Int) {
-        val disposable = repository.getGroupPosts(groupId, token = sPref.getTokenFromPreferences(),
+        val disposable = repository.getGroupPosts(groupId, token = sPref.getToken(),
                 currentPage = currentPage, pagSize = pagSize)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
