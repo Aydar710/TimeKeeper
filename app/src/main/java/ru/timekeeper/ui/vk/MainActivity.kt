@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickListener 
             }
             true
         }
+
+        onActionVkClicked()
     }
 
     override fun onVkGroupClicked(group: Group) {
