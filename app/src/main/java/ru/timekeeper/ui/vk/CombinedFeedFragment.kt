@@ -28,7 +28,7 @@ class CombinedFeedFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.menu_toolbar, menu)
+        inflater?.inflate(R.menu.menu_filter_posts, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -66,6 +66,16 @@ class CombinedFeedFragment : Fragment() {
         })
         viewModel?.getCombinedFeed()
         return view
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.action_filter_list -> {
+                val dialog = PercentDialogFragment()
+                dialog.show(fragmentManager, "asd")
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 

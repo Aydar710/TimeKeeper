@@ -70,7 +70,7 @@ interface VkService {
     fun repost(
             @Query("object") obj: String,
             @Query("access_token") accessToken: String,
-            @Query("message") message: String = "testing vk api"
+            @Query("message") message: String = ""
     ): Single<RepostResponseWrapper>
 
 }
