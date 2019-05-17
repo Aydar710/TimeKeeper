@@ -10,7 +10,8 @@ import ru.timekeeper.data.network.model.groupsRemote.Group
 import ru.timekeeper.data.repository.SharedPrefWrapper
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickListener {
+class MainActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickListener,
+        PercentDialogFragment.OnDialogButtonClickListener {
 
     @Inject
     lateinit var sPref: SharedPrefWrapper
@@ -34,6 +35,10 @@ class MainActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickListener 
 
     override fun onVkGroupClicked(group: Group) {
         doGroupWallTransaction(group)
+    }
+
+    override fun onPositiveBtnClicked(percent: Int) {
+        sPref.savePercent(percent)
     }
 
     private fun onActionVkClicked() {

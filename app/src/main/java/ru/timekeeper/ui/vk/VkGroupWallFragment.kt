@@ -10,9 +10,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_vk_group_wall.view.*
 import ru.timekeeper.App
-import ru.timekeeper.PAGINATION_SIZE
+import ru.timekeeper.PAGINATION_SIZE_WALL
 import ru.timekeeper.R
-import ru.timekeeper.TOTAL_ITEM_COUNT_MORE_THAN
 import ru.timekeeper.adapters.VkPostAdapter
 import ru.timekeeper.data.network.model.groupWallRemote.Item
 import ru.timekeeper.data.network.model.groupsRemote.Group
@@ -49,8 +48,18 @@ class VkGroupWallFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.menu_toolbar, menu)
+        inflater?.inflate(R.menu.menu_filter_posts, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.action_filter_list -> {
+                val dialog = PercentDialogFragment()
+                dialog.show(fragmentManager, "asd")
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -59,11 +68,12 @@ class VkGroupWallFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_vk_group_wall, container, false)
         val recyclerView = view.recycler_vk_group_wall
-        val adapter = VkPostAdapter { postId, postType, groupId ->
-            viewModel?.addLike(postId, postType, groupId)
-        }
+        val adapter = VkPostAdapter()
 
-        adapter.onImgRepostClickListener = {groupId, postId ->
+        adapter.onImgLikeClickListener = { postId, postType, groupId, isPostLiked ->
+            viewModel?.onLikeClicked(postId, postType, groupId, isPostLiked)
+        }
+        adapter.onImgRepostClickListener = { groupId, postId ->
             viewModel?.repost(groupId, postId)
         }
         adapter.groupName = arguments?.getString(ARG_GROUP_NAME) ?: ""
@@ -102,12 +112,10 @@ class VkGroupWallFragment : Fragment() {
                 val firstVisibleItemPosition = manager.findFirstVisibleItemPosition()
 
                 if (!isLastPage) {
-                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
+                    if (visibleItemCount + firstVisibleItemPosition == totalItemCount
                         && firstVisibleItemPosition >= 0
-                        && totalItemCount >= TOTAL_ITEM_COUNT_MORE_THAN
                     ) {
-
-                        viewModel?.loadNextPosts(groupId, ++currentPage, PAGINATION_SIZE)
+                        viewModel?.loadNextPosts(groupId, ++currentPage, PAGINATION_SIZE_WALL)
 
                     }
                 }

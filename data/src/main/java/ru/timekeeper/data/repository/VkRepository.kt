@@ -13,8 +13,12 @@ class VkRepository(
         private val idsCollection: CollectionReference
 ) {
 
-    fun getUsersGroups(userId: String, count: String = "13", token: String): Single<List<Group>> =
-            vkService.getUsersGroups(userId, count, token = token)
+    fun getUsersGroups(
+            userId: String, count: String = "15",
+            token: String, currentPage: Int = 0,
+            pageSize: Int = 0
+    ): Single<List<Group>> =
+            vkService.getUsersGroups(userId, count, token = token, offset = "${currentPage * pageSize}")
                     .subscribeOn(Schedulers.io())
                     .map {
                         it.response?.items
@@ -79,6 +83,13 @@ class VkRepository(
 
     fun addLike(type: String, itemId: String, token: String, groupId: String) =
             vkService.addLike(type, itemId, token, groupId)
+                    .subscribeOn(Schedulers.io())
+                    .map {
+                        it.response?.likes
+                    }
+
+    fun deleteLike(type: String, itemId: String, token: String, groupId: String): Single<Int> =
+            vkService.deleteLike(type, itemId, token, groupId)
                     .subscribeOn(Schedulers.io())
                     .map {
                         it.response?.likes

@@ -5,9 +5,12 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_vk_groups.view.*
 import ru.timekeeper.App
+import ru.timekeeper.PAGINATION_SIZE_GROUPS
 import ru.timekeeper.R
 import ru.timekeeper.adapters.VkGroupsAdapter
 import ru.timekeeper.data.network.model.groupsRemote.Group
@@ -54,6 +57,9 @@ class VkGroupsFragment : Fragment() {
         }
         userId = arguments?.getInt(ARG_USER_ID).toString()
         recyclerView.adapter = adapter
+
+        val manager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = manager
         viewModel.groups.observe(this, Observer<List<Group>> { groups ->
             adapter.submitList(groups)
             adapter.notifyDataSetChanged()
@@ -64,6 +70,27 @@ class VkGroupsFragment : Fragment() {
                     view.progress_bar_groups.visibility = View.VISIBLE
                 else
                     view.progress_bar_groups.visibility = View.GONE
+            }
+        })
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            private var currentPage: Int = 0
+            private var isLastPage = false
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val visibleItemCount = manager.childCount
+                val totalItemCount = manager.itemCount
+                val firstVisibleItemPosition = manager.findFirstVisibleItemPosition()
+
+                if (!isLastPage) {
+                    if (visibleItemCount + firstVisibleItemPosition == totalItemCount
+                            && firstVisibleItemPosition >= 0
+                    ) {
+                        viewModel.loadNextGroups(userId, ++currentPage, PAGINATION_SIZE_GROUPS)
+
+                    }
+                }
             }
         })
 

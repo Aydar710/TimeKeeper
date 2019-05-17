@@ -3,10 +3,7 @@ package ru.timekeeper.data.repository
 import android.content.Context
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
-import ru.timekeeper.data.SHARED_PREF_FILENAME
-import ru.timekeeper.data.SHARED_PREF_TOKEN_KEY
-import ru.timekeeper.data.SHARED_PREF_TOKEN_VALIDATION_KEY
-import ru.timekeeper.data.SHARED_PREF_USER_ID_KEY
+import ru.timekeeper.data.*
 
 class SharedPrefWrapper(context: Context) {
 
@@ -33,12 +30,21 @@ class SharedPrefWrapper(context: Context) {
     fun getUserId(): Int =
             sPref.getInt(SHARED_PREF_USER_ID_KEY, -1)
 
-    fun setTokenValidation(isTokenValid : Boolean) =
+    fun setTokenValidation(isTokenValid: Boolean) =
             sPref.edit().run {
                 putBoolean(SHARED_PREF_TOKEN_VALIDATION_KEY, isTokenValid)
                 apply()
             }
 
-    fun isTokenValid() : Boolean =
+    fun isTokenValid(): Boolean =
             sPref.getBoolean(SHARED_PREF_TOKEN_VALIDATION_KEY, false)
+
+    fun savePercent(percent: Int) =
+            sPref.edit().run {
+                putInt(SHARED_PREF_PERCENT_KEY, percent)
+                apply()
+            }
+
+    fun getPercent() =
+            sPref.getInt(SHARED_PREF_PERCENT_KEY, -1)
 }

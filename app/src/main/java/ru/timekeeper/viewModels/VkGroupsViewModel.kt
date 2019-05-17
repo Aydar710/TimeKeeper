@@ -26,30 +26,48 @@ class VkGroupsViewModel @Inject constructor(
 
     private fun changeGroupsValue(userId: String) {
         val disposable = repository.getUsersGroups(userId = userId, token = sPref.getToken())
-            .doOnSubscribe {
-                isLoading.postValue(true)
-            }
-            .doOnSuccess {
-                isLoading.postValue(false)
-            }
-            .doOnError {
-                isLoading.postValue(false)
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .map { groups ->
-                groups.forEach { group ->
-                    if (checkIfFavoriteGroupIdsContains(group.id)) {
-                        group.isFavorite = true
-                    }
+                .doOnSubscribe {
+                    isLoading.postValue(true)
                 }
-                groups
-            }
-            .subscribe({
-                groups.value = it
-            }, {
-                it.printStackTrace()
-            })
+                .doOnSuccess {
+                    isLoading.postValue(false)
+                }
+                .doOnError {
+                    isLoading.postValue(false)
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { groups ->
+                    groups.forEach { group ->
+                        if (checkIfFavoriteGroupIdsContains(group.id)) {
+                            group.isFavorite = true
+                        }
+                    }
+                    groups
+                }
+                .subscribe({
+                    groups.value = it
+                }, {
+                    it.printStackTrace()
+                })
         compositeDisposable.add(disposable)
+    }
+
+    fun loadNextGroups(userId: String, currentPage: Int, pagSize: Int) {
+        repository.getUsersGroups(userId, token = sPref.getToken(), currentPage = currentPage, pageSize = pagSize)
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { groups ->
+                    groups.forEach { group ->
+                        if (checkIfFavoriteGroupIdsContains(group.id)) {
+                            group.isFavorite = true
+                        }
+                    }
+                    groups
+                }
+                .subscribe({
+                    val groupList: MutableList<Group> = groups.value as MutableList<Group>
+                    groupList.addAll(it)
+                    groups.value = groupList
+                }, { it.printStackTrace() })
     }
 
     fun onStarClicked(groupId: Int) {
@@ -66,35 +84,35 @@ class VkGroupsViewModel @Inject constructor(
     fun getGroups(userId: String) {
         val ids = mutableListOf<String>()
         idsCollection.get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    for (document in task.result!!) {
-                        val data = document.data
-                        val id = data["id"]
-                        val idStr = id.toString()
-                        ids.add(idStr)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result!!) {
+                            val data = document.data
+                            val id = data["id"]
+                            val idStr = id.toString()
+                            ids.add(idStr)
+                        }
                     }
+                    favoriteGroupIds.addAll(ids)
+                    changeGroupsValue(userId)
                 }
-                favoriteGroupIds.addAll(ids)
-                changeGroupsValue(userId)
-            }
     }
 
     fun getFavoriteGroups(userId: String) {
         val ids = mutableListOf<String>()
         idsCollection.get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    for (document in task.result!!) {
-                        val data = document.data
-                        val id = data["id"]
-                        val idStr = id.toString()
-                        ids.add(idStr)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        for (document in task.result!!) {
+                            val data = document.data
+                            val id = data["id"]
+                            val idStr = id.toString()
+                            ids.add(idStr)
+                        }
                     }
+                    favoriteGroupIds.addAll(ids)
+                    changeFavoriteGroupsValue()
                 }
-                favoriteGroupIds.addAll(ids)
-                changeFavoriteGroupsValue()
-            }
     }
 
     private fun changeFavoriteGroupsValue() {
@@ -104,18 +122,18 @@ class VkGroupsViewModel @Inject constructor(
         }
 
         val disposable = repository.getGroupsById(groupsForQuery.toString(), sPref.getToken())
-            .observeOn(AndroidSchedulers.mainThread())
-            .map {
-                it.forEach {
-                    it.isFavorite = true
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    it.forEach {
+                        it.isFavorite = true
+                    }
+                    it
                 }
-                it
-            }
-            .subscribe({
-                groups.value = it
-            }, {
-                it.printStackTrace()
-            })
+                .subscribe({
+                    groups.value = it
+                }, {
+                    it.printStackTrace()
+                })
 
         compositeDisposable.add(disposable)
     }
@@ -139,7 +157,7 @@ class VkGroupsViewModel @Inject constructor(
         groups.value = groupList
     }
 
-    private fun markGroupAsNotFavorite(groupId : Int){
+    private fun markGroupAsNotFavorite(groupId: Int) {
         val groupList: MutableList<Group> = groups.value as MutableList<Group>
         val index = findGroupIndexWithRequiredId(groupId)
         groupList[index].isFavorite = false

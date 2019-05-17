@@ -39,7 +39,12 @@ class CombinedFeedFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)[CombinedFeedViewModel::class.java]
 
         val recyclerView = view.recycler_vk_group_wall
-        val adapter = VkPostAdapter(){postId, postType, groupId ->
+        val adapter = VkPostAdapter()
+        adapter.onImgLikeClickListener = { postId, postType, groupId, isPostLiked ->
+            viewModel?.onLikeClicked(postId, postType, groupId, isPostLiked)
+        }
+        adapter.onImgRepostClickListener = { groupId, postId ->
+            viewModel?.repost(groupId, postId)
         }
         adapter.groupName = ""
         adapter.groupPhotoSource = ""
@@ -48,6 +53,7 @@ class CombinedFeedFragment : Fragment() {
 
         viewModel?.posts?.observe(this, Observer<List<Item>> { posts ->
             adapter.submitList(posts)
+            adapter.notifyDataSetChanged()
         })
 
         viewModel?.isLoading?.observe(this, Observer<Boolean> { isLoading ->
