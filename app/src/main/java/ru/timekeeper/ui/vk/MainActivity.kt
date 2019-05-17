@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity(), VkGroupsAdapter.ListItemClickListener,
             }
             true
         }
-
         onActionVkClicked()
     }
 

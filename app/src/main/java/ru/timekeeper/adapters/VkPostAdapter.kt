@@ -16,7 +16,7 @@ import ru.timekeeper.data.network.model.groupWallRemote.Item
 import java.text.SimpleDateFormat
 import java.util.*
 
-class VkPostAdapter() : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCallback()) {
+class VkPostAdapter : ListAdapter<Item, VkPostAdapter.PostHolder>(PostItemDiffCallback()) {
 
     var groupPhotoSource: String? = null
     var groupName: String? = null

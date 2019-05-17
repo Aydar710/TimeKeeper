@@ -75,7 +75,7 @@ class VkRepository(
         var mergedObservables: MutableList<Observable<List<Item>>> = mutableListOf()
         for (i in 0 until groupIds.size) {
             mergedObservables.add(
-                    getGroupPosts(groupIds[i], token = token, count = "1").toObservable()
+                    getGroupPosts(groupIds[i], token = token, count = "10").toObservable()
             )
         }
         return Observable.merge(mergedObservables)

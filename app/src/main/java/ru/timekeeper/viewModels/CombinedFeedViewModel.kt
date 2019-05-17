@@ -11,9 +11,9 @@ import ru.timekeeper.data.repository.VkRepository
 import javax.inject.Inject
 
 class CombinedFeedViewModel @Inject constructor(
-    private val vkRepository: VkRepository,
-    private val idsCollection: CollectionReference,
-    private val sPref: SharedPrefWrapper
+        private val vkRepository: VkRepository,
+        private val idsCollection: CollectionReference,
+        private val sPref: SharedPrefWrapper
 ) : ViewModel() {
 
     private var favoriteIds = mutableListOf<String>()
@@ -37,19 +37,19 @@ class CombinedFeedViewModel @Inject constructor(
 
     fun repost(groupId: Int, postId: Int) {
         vkRepository.repost("-$groupId", "$postId", sPref.getToken())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ repostCount ->
-                val postList: MutableList<Item> = posts.value as MutableList<Item>
-                postList.forEach { item ->
-                    if (item.id == postId) {
-                        item.reposts?.userReposted = 1
-                        item.reposts?.count = repostCount
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ repostCount ->
+                    val postList: MutableList<Item> = posts.value as MutableList<Item>
+                    postList.forEach { item ->
+                        if (item.id == postId) {
+                            item.reposts?.userReposted = 1
+                            item.reposts?.count = repostCount
+                        }
                     }
-                }
-                posts.postValue(postList)
-            }, {
-                it.printStackTrace()
-            })
+                    posts.postValue(postList)
+                }, {
+                    it.printStackTrace()
+                })
     }
 
     private fun changePostsValue() {
@@ -77,49 +77,49 @@ class CombinedFeedViewModel @Inject constructor(
 
     private fun getFavoriteIds() {
         idsCollection
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val data = document.data
-                    val id = data["id"]
-                    favoriteIds.add("$id")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        val data = document.data
+                        val id = data["id"]
+                        favoriteIds.add("$id")
+                    }
+                    changePostsValue()
                 }
-                changePostsValue()
-            }
     }
 
     private fun addLike(postId: Int, postType: String, groupId: String) {
         vkRepository.addLike(postType, postId.toString(), sPref.getToken(), groupId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ likeCount ->
-                val postList: MutableList<Item> = posts.value as MutableList<Item>
-                postList.forEach { item ->
-                    if (item.id == postId) {
-                        item.likes?.userLikes = 1
-                        item.likes?.count = likeCount
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ likeCount ->
+                    val postList: MutableList<Item> = posts.value as MutableList<Item>
+                    postList.forEach { item ->
+                        if (item.id == postId) {
+                            item.likes?.userLikes = 1
+                            item.likes?.count = likeCount
+                        }
                     }
-                }
-                posts.postValue(postList)
-            }, {
-                it.printStackTrace()
-            })
+                    posts.postValue(postList)
+                }, {
+                    it.printStackTrace()
+                })
     }
 
     private fun deleteLike(postId: Int, postType: String, groupId: String) {
         vkRepository.deleteLike(postType, postId.toString(), sPref.getToken(), groupId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ likeCount ->
-                val postList: MutableList<Item> = posts.value as MutableList<Item>
-                postList.forEach { item ->
-                    if (item.id == postId) {
-                        item.likes?.userLikes = 0
-                        item.likes?.count = likeCount
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ likeCount ->
+                    val postList: MutableList<Item> = posts.value as MutableList<Item>
+                    postList.forEach { item ->
+                        if (item.id == postId) {
+                            item.likes?.userLikes = 0
+                            item.likes?.count = likeCount
+                        }
                     }
-                }
-                posts.postValue(postList)
-            }, {
-                it.printStackTrace()
-            })
+                    posts.postValue(postList)
+                }, {
+                    it.printStackTrace()
+                })
     }
 
     override fun onCleared() {

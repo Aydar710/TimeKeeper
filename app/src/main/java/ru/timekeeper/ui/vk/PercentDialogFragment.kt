@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog
 import android.widget.EditText
 import ru.timekeeper.R
 
-
 class PercentDialogFragment : DialogFragment() {
 
     lateinit var clickListener: OnDialogButtonClickListener
@@ -29,6 +28,7 @@ class PercentDialogFragment : DialogFragment() {
         val view = inflater?.inflate(R.layout.fragment_dialog, null)
         etPercent = view?.findViewById(R.id.et_percent)
         builder?.setView(view)
+                ?.setTitle("Популярность поста")
                 ?.setPositiveButton("Ok") { dialog, which ->
                     val percentString = etPercent?.text?.toString()
                     if (percentString?.length != 0)
