@@ -7,4 +7,6 @@
     <color name="black">#000000</color>
     <color name="background">#F7F9FC</color>
     <color name="backgroundTest">#B962B9</color>
+
+    <color name="bottomNavBackground">#D1D1D1</color>
 </resources>

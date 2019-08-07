@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical">
+    android:background="@color/background">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_vk_group_wall"
@@ -13,4 +12,10 @@
         android:scrollbars="none"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/progress_bar_wall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+</FrameLayout>

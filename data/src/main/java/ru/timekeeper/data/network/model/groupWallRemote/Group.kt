@@ -10,7 +10,7 @@ data class Group(
     val id: Int? = null,
     @SerializedName("name")
     @Expose
-    val name: String? = null,
+    var name: String? = null,
     @SerializedName("screen_name")
     @Expose
     val screenName: String? = null,

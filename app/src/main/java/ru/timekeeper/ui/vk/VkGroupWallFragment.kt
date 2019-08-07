@@ -5,13 +5,13 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.*
 import kotlinx.android.synthetic.main.fragment_vk_group_wall.view.*
 import ru.timekeeper.App
+import ru.timekeeper.PAGINATION_SIZE_WALL
 import ru.timekeeper.R
-import ru.timekeeper.SharedPrefWrapper
 import ru.timekeeper.adapters.VkPostAdapter
 import ru.timekeeper.data.network.model.groupWallRemote.Item
 import ru.timekeeper.data.network.model.groupsRemote.Group
@@ -19,10 +19,6 @@ import ru.timekeeper.viewModels.VkGroupWallViewModel
 import javax.inject.Inject
 
 class VkGroupWallFragment : Fragment() {
-
-    @Suppress("LateinitUsage")
-    @Inject
-    lateinit var sharedPrefWrapper: SharedPrefWrapper
 
     @Suppress("LateinitUsage")
     @Inject
@@ -46,6 +42,26 @@ class VkGroupWallFragment : Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_filter_posts, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.action_filter_list -> {
+                val dialog = PercentDialogFragment()
+                dialog.show(fragmentManager, "asd")
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         App.component.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[VkGroupWallViewModel::class.java]
@@ -53,18 +69,58 @@ class VkGroupWallFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_vk_group_wall, container, false)
         val recyclerView = view.recycler_vk_group_wall
         val adapter = VkPostAdapter()
+
+        adapter.onImgLikeClickListener = { postId, postType, groupId, isPostLiked ->
+            viewModel?.onLikeClicked(postId, postType, groupId, isPostLiked)
+        }
+        adapter.onImgRepostClickListener = { groupId, postId ->
+            viewModel?.repost(groupId, postId)
+        }
         adapter.groupName = arguments?.getString(ARG_GROUP_NAME) ?: ""
         adapter.groupPhotoSource = arguments?.getString(ARG_GROUP_PHOTO_SRC) ?: ""
 
         val groupId: String = "-" + arguments?.getInt(ARG_GROUP_ID).toString()
         recyclerView.adapter = adapter
-        val token = sharedPrefWrapper.getTokenFromPreferences()
+
+        val manager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = manager
 
         viewModel?.posts?.observe(this, Observer<List<Item>> { posts ->
             adapter.submitList(posts)
+            adapter.notifyDataSetChanged()
+        })
+
+        viewModel?.isLoading?.observe(this, Observer<Boolean> { isLoading ->
+            isLoading?.let {
+                if (it)
+                    view.progress_bar_wall.visibility = View.VISIBLE
+                else
+                    view.progress_bar_wall.visibility = View.GONE
+            }
         })
 
         viewModel?.loadGroupWall(groupId)
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            private var currentPage: Int = 0
+            private var isLastPage = false
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val visibleItemCount = manager.childCount
+                val totalItemCount = manager.itemCount
+                val firstVisibleItemPosition = manager.findFirstVisibleItemPosition()
+
+                if (!isLastPage) {
+                    if (visibleItemCount + firstVisibleItemPosition == totalItemCount
+                        && firstVisibleItemPosition >= 0
+                    ) {
+                        viewModel?.loadNextPosts(groupId, ++currentPage, PAGINATION_SIZE_WALL)
+
+                    }
+                }
+            }
+        })
         return view
     }
 }

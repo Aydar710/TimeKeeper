@@ -12,6 +12,7 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideVkRepository(vkService: VkService, collectionReference: CollectionReference): VkRepository =
-        VkRepository(vkService, collectionReference)
+    fun provideVkRepository(vkService: VkService, collectionReference: CollectionReference)
+            : VkRepository =
+            VkRepository(vkService, collectionReference)
 }

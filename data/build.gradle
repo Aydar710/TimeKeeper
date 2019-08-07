@@ -13,7 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.bottom_navigation_item_background_colors.runner.AndroidJUnitRunner"
     }
 
     buildTypes {

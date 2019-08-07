@@ -89,8 +89,8 @@ buildscript {
         ]
 
         espressoDeps = [
-                runner: "com.android.support.test:runner:$espressoRunnerVersion",
-                core  : "com.android.support.test.espresso:espresso-core:$espressoCoreVersion"
+                runner: "com.android.support.bottom_navigation_item_background_colors:runner:$espressoRunnerVersion",
+                core  : "com.android.support.bottom_navigation_item_background_colors.espresso:espresso-core:$espressoCoreVersion"
         ]
 
         vkDeps = [

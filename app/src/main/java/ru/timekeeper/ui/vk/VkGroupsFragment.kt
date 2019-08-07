@@ -5,14 +5,16 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_user_groups.view.*
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.*
+import kotlinx.android.synthetic.main.fragment_vk_groups.view.*
 import ru.timekeeper.App
+import ru.timekeeper.PAGINATION_SIZE_GROUPS
+import ru.timekeeper.R
 import ru.timekeeper.adapters.VkGroupsAdapter
 import ru.timekeeper.data.network.model.groupsRemote.Group
-import ru.timekeeper.viewModels.VkGroupsFragmentViewModel
+import ru.timekeeper.viewModels.VkGroupsViewModel
 import javax.inject.Inject
 
 class VkGroupsFragment : Fragment() {
@@ -22,8 +24,10 @@ class VkGroupsFragment : Fragment() {
     @Suppress("LateinitUsage")
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Suppress("LateinitUsage")
+    lateinit var viewModel: VkGroupsViewModel
 
-    private var viewModel: VkGroupsFragmentViewModel? = null
+    var userId: String = ""
 
     companion object {
         private val ARG_USER_ID = "user_id"
@@ -36,32 +40,79 @@ class VkGroupsFragment : Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(ru.timekeeper.R.layout.fragment_user_groups, container, false)
+        val view = inflater.inflate(ru.timekeeper.R.layout.fragment_vk_groups, container, false)
         App.component.inject(this)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[VkGroupsFragmentViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[VkGroupsViewModel::class.java]
         val recyclerView = view.recycler_user_groups
         val fragmentActivity: MainActivity = activity as MainActivity
         adapter = VkGroupsAdapter(fragmentActivity) {
             onImgFavoriteClicked(it)
         }
-        val userId: String = arguments?.getInt(ARG_USER_ID).toString()
+        userId = arguments?.getInt(ARG_USER_ID).toString()
         recyclerView.adapter = adapter
 
-        viewModel?.groups?.observe(this, Observer<List<Group>> { groups ->
-            var list = mutableListOf<Group>()
-            groups?.let {
-                list.addAll(it)
+        val manager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = manager
+        viewModel.groups.observe(this, Observer<List<Group>> { groups ->
+            adapter.submitList(groups)
+            adapter.notifyDataSetChanged()
+        })
+        viewModel.isLoading.observe(this, Observer<Boolean> { isLoading ->
+            isLoading?.let {
+                if (it)
+                    view.progress_bar_groups.visibility = View.VISIBLE
+                else
+                    view.progress_bar_groups.visibility = View.GONE
             }
-            adapter.submitList(list)
         })
 
-        viewModel?.getGroups(userId)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            private var currentPage: Int = 0
+            private var isLastPage = false
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val visibleItemCount = manager.childCount
+                val totalItemCount = manager.itemCount
+                val firstVisibleItemPosition = manager.findFirstVisibleItemPosition()
+
+                if (!isLastPage) {
+                    if (visibleItemCount + firstVisibleItemPosition == totalItemCount
+                            && firstVisibleItemPosition >= 0
+                    ) {
+                        viewModel.loadNextGroups(userId, ++currentPage, PAGINATION_SIZE_GROUPS)
+
+                    }
+                }
+            }
+        })
+
+        viewModel.getGroups(userId)
         return view
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_toolbar, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.action_filter -> {
+                viewModel.getFavoriteGroups(userId)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun onImgFavoriteClicked(groupId: Int) {
-        viewModel?.onStarClicked(groupId)
+        viewModel.onStarClicked(groupId)
     }
 }

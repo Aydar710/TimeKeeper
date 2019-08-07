@@ -43,6 +43,8 @@ class VkGroupsAdapter(private val listItemClickListener: ListItemClickListener,
 
             if (group.isFavorite){
                 img_favorite.setImageResource(R.drawable.ic_star_filled)
+            }else{
+                img_favorite.setImageResource(R.drawable.ic_star_border)
             }
 
             containerView.setOnClickListener {
@@ -51,6 +53,7 @@ class VkGroupsAdapter(private val listItemClickListener: ListItemClickListener,
             img_favorite.setOnClickListener {
                 group.id?.let { GroupId -> favoritesClickListener(GroupId) }
             }
+
             Picasso.get()
                     .load(group.photo100)
                     .into(imgGroup)

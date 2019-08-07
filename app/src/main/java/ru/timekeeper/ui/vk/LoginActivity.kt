@@ -11,20 +11,18 @@ import com.vk.api.sdk.auth.VKScope
 import kotlinx.android.synthetic.main.activity_login.*
 import ru.timekeeper.App
 import ru.timekeeper.R
-import ru.timekeeper.SharedPrefWrapper
+import ru.timekeeper.data.repository.SharedPrefWrapper
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
-
     @Suppress("LateinitUsage")
     @Inject
-    lateinit var sharedPrefWrapper: SharedPrefWrapper
+    lateinit var sPref: SharedPrefWrapper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
 
         App.component.inject(this)
 
@@ -32,15 +30,17 @@ class LoginActivity : AppCompatActivity() {
             VK.login(this, arrayListOf(VKScope.WALL, VKScope.GROUPS))
         }
 
+        if (sPref.isTokenValid())
             startContainerActivity()
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val callback = object : VKAuthCallback {
             override fun onLogin(token: VKAccessToken) {
                 // User passed authorization
-                sharedPrefWrapper.saveTokenToPreferences(token.accessToken)
+                sPref.saveToken(token.accessToken)
+                sPref.saveUserId(token.userId)
+                sPref.setTokenValidation(true)
                 Log.i("Token", token.accessToken)
                 startContainerActivity()
             }
