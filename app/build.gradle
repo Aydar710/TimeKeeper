@@ -7,22 +7,22 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 
-detekt {
-    version = "1.0.0-RC12"
-    input = files("${project.rootDir}/${project.getName()}/src/main/java")
-    config = files("${project.rootDir}/detekt/detekt-config.yml")
-    filters = ".*bottom_navigation_item_background_colors.*,.*/resources/.*,.*/tmp/.*"
-    reports {
-        xml {
-            enabled = true
-            destination = file("build/reports/detekt.xml")
-        }
-        html {
-            enabled = true
-            destination = file("build/reports/detekt.html")
-        }
-    }
-}
+//detekt {
+//    version = "1.0.0-RC12"
+//    input = files("${project.rootDir}/${project.getName()}/src/main/java")
+//    config = files("${project.rootDir}/detekt/detekt-config.yml")
+//    filters = ".*bottom_navigation_item_background_colors.*,.*/resources/.*,.*/tmp/.*"
+//    reports {
+//        xml {
+//            enabled = true
+//            destination = file("build/reports/detekt.xml")
+//        }
+//        html {
+//            enabled = true
+//            destination = file("build/reports/detekt.html")
+//        }
+//    }
+//}
 
 android {
     compileSdkVersion 28
