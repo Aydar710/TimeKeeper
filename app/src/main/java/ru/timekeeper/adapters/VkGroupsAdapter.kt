@@ -1,7 +1,7 @@
 package ru.timekeeper.adapters
 
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +34,7 @@ class VkGroupsAdapter(private val listItemClickListener: ListItemClickListener,
     }
 
 
-    inner class GroupHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
+    inner class GroupHolder(override val containerView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(containerView),
             LayoutContainer {
         var imgGroup = containerView.img_group
 

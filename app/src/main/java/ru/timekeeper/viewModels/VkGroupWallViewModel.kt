@@ -1,6 +1,6 @@
 package ru.timekeeper.viewModels
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.timekeeper.data.network.model.groupWallRemote.Item
 import ru.timekeeper.data.repository.SharedPrefWrapper

@@ -1,12 +1,12 @@
 package ru.timekeeper.ui.vk
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_vk_group_wall.view.*
 import ru.timekeeper.App
@@ -18,7 +18,7 @@ import ru.timekeeper.data.network.model.groupsRemote.Group
 import ru.timekeeper.viewModels.VkGroupWallViewModel
 import javax.inject.Inject
 
-class VkGroupWallFragment : Fragment() {
+class VkGroupWallFragment : androidx.fragment.app.Fragment() {
 
     @Suppress("LateinitUsage")
     @Inject
@@ -82,7 +82,7 @@ class VkGroupWallFragment : Fragment() {
         val groupId: String = "-" + arguments?.getInt(ARG_GROUP_ID).toString()
         recyclerView.adapter = adapter
 
-        val manager = LinearLayoutManager(activity)
+        val manager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         recyclerView.layoutManager = manager
 
         viewModel?.posts?.observe(this, Observer<List<Item>> { posts ->
@@ -101,11 +101,11 @@ class VkGroupWallFragment : Fragment() {
 
         viewModel?.loadGroupWall(groupId)
 
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
             private var currentPage: Int = 0
             private var isLastPage = false
 
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val visibleItemCount = manager.childCount
                 val totalItemCount = manager.itemCount

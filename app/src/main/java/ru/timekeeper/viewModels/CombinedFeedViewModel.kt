@@ -1,6 +1,6 @@
 package ru.timekeeper.viewModels
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.CollectionReference
 import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.timekeeper.data.network.model.groupWallRemote.Item

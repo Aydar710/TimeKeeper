@@ -2,7 +2,7 @@ package ru.timekeeper.data.repository
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import ru.timekeeper.data.*
 
 class SharedPrefWrapper(context: Context) {

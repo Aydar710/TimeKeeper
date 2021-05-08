@@ -1,10 +1,10 @@
 package ru.timekeeper.ui.vk
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_vk_group_wall.view.*
 import ru.timekeeper.App
@@ -14,7 +14,7 @@ import ru.timekeeper.data.network.model.groupWallRemote.Item
 import ru.timekeeper.viewModels.CombinedFeedViewModel
 import javax.inject.Inject
 
-class CombinedFeedFragment : Fragment() {
+class CombinedFeedFragment : androidx.fragment.app.Fragment() {
 
     @Suppress("LateinitUsage")
     @Inject
