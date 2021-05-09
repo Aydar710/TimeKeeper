@@ -25,11 +25,11 @@ apply plugin: 'com.google.gms.google-services'
 //}
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     defaultConfig {
         applicationId "ru.timekeeper"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.bottom_navigation_item_background_colors.runner.AndroidJUnitRunner"
@@ -52,7 +52,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
 
 
-    implementation project(':core')
     implementation project(':data')
 
     implementation androidDeps.values()
